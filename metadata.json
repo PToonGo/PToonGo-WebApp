@@ -1,0 +1,6 @@
+{
+  "name": "PToonGo",
+  "description": "Cổng tải lên, lưu trữ và trình chiếu video PToonGo, hỗ trợ quản trị và trao đổi công nghệ AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,129 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role-based access control.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The unique user ID from Firebase Authentication."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User email address."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the user."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "user"],
+          "description": "The role of the user."
+        },
+        "createdAt": {
+          "type": "integer",
+          "description": "Timestamp when the user was created."
+        }
+      },
+      "required": ["uid", "email", "displayName", "role", "createdAt"]
+    },
+    "Video": {
+      "title": "Video",
+      "description": "Metadata for uploaded videos.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Generated video ID (e.g., 'intro-1', 'cartoon-2')."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the video."
+        },
+        "summary": {
+          "type": "string",
+          "description": "Summary/description of the video."
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Giới thiệu", "Phim hoạt hình", "Du lịch trải nghiệm", "Trao đổi công nghệ AI"],
+          "description": "Category of the video."
+        },
+        "videoUrl": {
+          "type": "string",
+          "description": "URL of the video file."
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "description": "URL of the video thumbnail."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Duration of the video (e.g., '02:30')."
+        },
+        "views": {
+          "type": "integer",
+          "description": "Number of views."
+        },
+        "createdAt": {
+          "type": "integer",
+          "description": "Timestamp of creation."
+        },
+        "uploadedBy": {
+          "type": "string",
+          "description": "UID of the user who uploaded the video."
+        }
+      },
+      "required": ["id", "title", "summary", "category", "videoUrl", "thumbnailUrl", "duration", "views", "createdAt", "uploadedBy"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Chat messages in the AI technology forum.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the message."
+        },
+        "text": {
+          "type": "string",
+          "description": "Content of the message."
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the sender."
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "Email of the sender."
+        },
+        "userName": {
+          "type": "string",
+          "description": "Display name of the sender."
+        },
+        "createdAt": {
+          "type": "integer",
+          "description": "Timestamp when the message was sent."
+        }
+      },
+      "required": ["id", "text", "userId", "userEmail", "userName", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User settings and roles."
+    },
+    "/videos/{videoId}": {
+      "schema": "Video",
+      "description": "Uploaded video data."
+    },
+    "/messages/{messageId}": {
+      "schema": "Message",
+      "description": "AI technology exchange forum chat messages."
+    }
+  }
+}
