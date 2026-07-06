@@ -101,7 +101,8 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                 {/* Info */}
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-0.5 text-[10px] uppercase font-mono font-bold tracking-wider bg-pblue/20 text-blue-400 border border-pblue/30 rounded-full">
+                    <span className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] uppercase font-mono font-extrabold tracking-wider bg-pblue/20 text-blue-400 border border-pblue/30 rounded-full w-fit select-none">
+                      <BookOpen className="w-3.5 h-3.5 text-pblue" strokeWidth={3} />
                       {selectedIntroVideo.category}
                     </span>
                     <span className="text-xs text-gray-400 flex items-center gap-1 font-mono">
@@ -201,7 +202,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
               <div
                 id={`topic-card-${index}`}
                 key={index}
-                className="flex flex-col rounded-xl overflow-hidden video-card flex-grow shadow-lg"
+                className="flex flex-col rounded-xl overflow-hidden video-card flex-grow shadow-lg h-full"
               >
                 {/* 16:9 Video Player on Top with controls to preview directly */}
                 <div className="relative aspect-video w-full bg-black border-b border-white/10" onClick={(e) => e.stopPropagation()}>
@@ -237,8 +238,8 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                   <div className="flex flex-col gap-2">
                     {/* Header: Icon + Category Name */}
                     <div className="flex items-center gap-2">
-                      <IconComponent className={`w-4 h-4 ${cat.color}`} />
-                      <span className={`font-display font-bold text-sm ${cat.color}`}>
+                      <IconComponent className={`w-4 h-4 ${cat.color}`} strokeWidth={cat.name === "Giới thiệu" ? 3 : 2} />
+                      <span className={`font-display ${cat.name === "Giới thiệu" ? "font-extrabold" : "font-bold"} text-sm ${cat.color}`}>
                         {cat.name}
                       </span>
                     </div>
@@ -249,9 +250,9 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                     </h4>
 
                     {/* Summary of film / topic */}
-                    <p className="text-[11px] text-gray-400 text-justify line-clamp-3">
+                    <div className="h-[80px] overflow-y-auto pr-1 custom-scrollbar text-[11px] text-gray-400 text-justify leading-relaxed">
                       {cat.video ? cat.video.summary : "Vui lòng truy cập trang quản lý để cập nhật thêm video mới cho chủ đề này."}
-                    </p>
+                    </div>
                   </div>
 
                   {/* CTA link to navigate to specific tab */}

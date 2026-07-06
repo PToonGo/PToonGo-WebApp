@@ -14,7 +14,10 @@ import {
   Image as ImageIcon, 
   Eye, 
   Clock, 
-  ListOrdered 
+  ListOrdered,
+  BookOpen,
+  Map,
+  MessageSquare 
 } from "lucide-react";
 
 // Helper to extract YouTube video ID and construct high-res thumbnail URL
@@ -722,11 +725,24 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                   group.category === "Du lịch trải nghiệm" ? "text-porange" :
                   group.category === "Trao đổi công nghệ AI" ? "text-purple-400" :
                   "text-white";
+                
+                const categoryIcons: Record<string, React.ComponentType<any>> = {
+                  "Giới thiệu": BookOpen,
+                  "Phim hoạt hình": Film,
+                  "Du lịch trải nghiệm": Map,
+                  "Trao đổi công nghệ AI": MessageSquare,
+                };
+                const IconComponent = categoryIcons[group.category] || Film;
+                const isIntro = group.category === "Giới thiệu";
+
                 return (
                   <div id={`group-${group.category}`} key={group.category} className="flex flex-col gap-3">
-                    <span className={`text-xs font-bold ${categoryColor} font-mono uppercase bg-[#2a2d36] px-3 py-1 rounded-md border border-white/5 self-start`}>
-                      {group.category}
-                    </span>
+                    <div className="flex items-center gap-2 bg-[#2a2d36] px-3 py-1.5 rounded-md border border-white/5 self-start select-none">
+                      <IconComponent className={`w-3.5 h-3.5 ${categoryColor}`} strokeWidth={isIntro ? 3 : 2} />
+                      <span className={`text-xs font-mono uppercase tracking-wider ${isIntro ? "font-extrabold text-pblue text-shadow-sm" : "font-bold " + categoryColor}`}>
+                        {group.category}
+                      </span>
+                    </div>
 
                     <div className="flex flex-col gap-3">
                       {group.items.length > 0 ? (

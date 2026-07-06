@@ -207,7 +207,7 @@ export default function CategoryPage({
                   id={`video-card-${video.id}`}
                   key={video.id}
                   onClick={() => setSelectedVideo(video)}
-                  className={`flex flex-col rounded-xl overflow-hidden cursor-pointer flex-grow video-card
+                  className={`flex flex-col rounded-xl overflow-hidden cursor-pointer flex-grow video-card h-full
                     ${isPlaying 
                       ? "border-porange/50 shadow-glow bg-psub/70 scale-101 border-2" 
                       : ""
@@ -244,9 +244,9 @@ export default function CategoryPage({
                       >
                         {video.title}
                       </h4>
-                      <p className="text-[11px] text-gray-400 text-justify line-clamp-3 mt-1.5">
+                      <div className="h-[80px] overflow-y-auto pr-1 custom-scrollbar text-[11px] text-gray-400 text-justify mt-1.5 leading-relaxed">
                         {video.summary}
-                      </p>
+                      </div>
                     </div>
                     <div className="flex items-center justify-between mt-3 pt-2 border-t border-white/5 text-[10px] text-gray-500 font-mono">
                       <span>{video.duration}</span>
