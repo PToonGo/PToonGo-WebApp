@@ -135,7 +135,7 @@ export default function Header({ activeTab, setActiveTab, user, profile, onLogou
 
       {/* Mobile Dropdown Navigation */}
       {mobileMenuOpen && (
-        <div id="mobile-dropdown-menu" className="absolute top-16 left-0 w-full bg-[#303545]/95 backdrop-blur-lg border-b border-white/10 flex flex-col p-6 gap-3 lg:hidden shadow-xl animate-in slide-in-from-top-4 duration-300">
+        <div id="mobile-dropdown-menu" className="absolute top-16 left-0 w-full bg-[#253035]/95 backdrop-blur-lg border-b border-white/10 flex flex-col p-6 gap-3 lg:hidden shadow-xl animate-in slide-in-from-top-4 duration-300">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
             return (

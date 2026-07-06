@@ -247,7 +247,7 @@ export default function App() {
   };
 
   return (
-    <div id="ptoongo-app" className="min-h-screen bg-[#303545] text-gray-100 flex flex-col justify-between">
+    <div id="ptoongo-app" className="min-h-screen bg-[#253035] text-gray-100 flex flex-col justify-between">
       
       {/* Header */}
       <Header

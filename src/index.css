@@ -9,13 +9,13 @@
   --color-pblue: #244895;
   --color-pgreen: #549846;
   --color-porange: #E9672E;
-  --color-pmain: #303545;
+  --color-pmain: #253035;
   --color-psub: #202530;
 }
 
 /* Base resets & custom scrollbars */
 html, body, #root {
-  background-color: #303545;
+  background-color: #253035;
   color: #f3f4f6;
   font-family: var(--font-sans);
   min-height: 100vh;
@@ -26,28 +26,28 @@ html, body, #root {
 
 /* Glassmorphism custom classes */
 .glass-panel {
-  background-color: rgba(48, 53, 69, 0.7); /* Adjusted opacity to 70% */
+  background-color: rgba(37, 48, 53, 0.8); /* Adjusted opacity to 80% and matching body color base */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .glass-effect {
-  background-color: rgba(48, 53, 69, 0.7); /* Adjusted opacity to 70% */
+  background-color: rgba(37, 48, 53, 0.8); /* Adjusted opacity to 80% and matching body color base */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .glass-panel-dark {
-  background: rgba(32, 37, 48, 0.7); /* Adjusted opacity to 70% */
+  background: rgba(32, 37, 48, 0.8); /* Adjusted opacity to 80% */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-glass {
-  background-color: rgba(48, 53, 69, 0.7); /* Adjusted opacity to 70% */
+  background-color: rgba(37, 48, 53, 0.8); /* Adjusted opacity to 80% and matching body color base */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
