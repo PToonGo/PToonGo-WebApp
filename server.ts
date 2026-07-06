@@ -19,6 +19,13 @@ async function startServer() {
   // Serve uploads folder statically
   app.use('/uploads', express.static(uploadDir));
 
+  // Serve assets folder statically
+  if (process.env.NODE_ENV !== "production") {
+    app.use('/assets', express.static(path.join(process.cwd(), 'assets')));
+  } else {
+    app.use('/assets', express.static(path.join(process.cwd(), 'dist/assets')));
+  }
+
   // File Upload API
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
