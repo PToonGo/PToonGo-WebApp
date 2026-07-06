@@ -207,14 +207,14 @@ export default function CategoryPage({
                   id={`video-card-${video.id}`}
                   key={video.id}
                   onClick={() => setSelectedVideo(video)}
-                  className={`flex flex-col rounded-xl overflow-hidden cursor-pointer flex-grow video-card h-full
+                  className={`flex flex-col rounded-xl overflow-hidden cursor-pointer flex-grow video-card aspect-[1/1.2] w-full min-h-0
                     ${isPlaying 
                       ? "border-porange/50 shadow-glow bg-psub/70 scale-101 border-2" 
                       : ""
                     }`}
                 >
                   {/* Video Thumbnail / Preview Player directly in-place */}
-                  <div className="relative aspect-video w-full bg-black border-b border-white/10" onClick={(e) => e.stopPropagation()}>
+                  <div className="relative aspect-video w-full bg-black border-b border-white/10 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
                     {getYoutubeEmbedUrl(video.videoUrl) ? (
                       <iframe
                         id={`preview-${video.id}-yt`}
@@ -223,7 +223,7 @@ export default function CategoryPage({
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full object-contain"
                       />
                     ) : (
                       <video
@@ -237,18 +237,18 @@ export default function CategoryPage({
                   </div>
 
                   {/* Info inside card */}
-                  <div className="p-4 flex flex-col gap-2 flex-grow justify-between">
-                    <div>
+                  <div className="p-4 flex flex-col gap-2 flex-grow justify-between min-h-0">
+                    <div className="flex flex-col min-h-0 flex-1">
                       <h4 className={`font-semibold text-xs line-clamp-1 transition-colors
                         ${isPlaying ? "text-porange" : "text-gray-200"}`}
                       >
                         {video.title}
                       </h4>
-                      <div className="h-[80px] overflow-y-auto pr-1 custom-scrollbar text-[11px] text-gray-400 text-justify mt-1.5 leading-relaxed">
+                      <div className="flex-1 min-h-0 overflow-y-auto pr-1 custom-scrollbar text-[11px] text-gray-400 text-justify mt-1.5 leading-relaxed">
                         {video.summary}
                       </div>
                     </div>
-                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-white/5 text-[10px] text-gray-500 font-mono">
+                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/5 text-[10px] text-gray-500 font-mono flex-shrink-0">
                       <span>{video.duration}</span>
                       <span>{video.views.toLocaleString()} lượt xem</span>
                     </div>

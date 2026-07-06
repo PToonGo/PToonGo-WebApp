@@ -202,10 +202,10 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
               <div
                 id={`topic-card-${index}`}
                 key={index}
-                className="flex flex-col rounded-xl overflow-hidden video-card flex-grow shadow-lg h-full"
+                className="flex flex-col rounded-xl overflow-hidden video-card flex-grow shadow-lg aspect-[1/1.2] w-full min-h-0"
               >
                 {/* 16:9 Video Player on Top with controls to preview directly */}
-                <div className="relative aspect-video w-full bg-black border-b border-white/10" onClick={(e) => e.stopPropagation()}>
+                <div className="relative aspect-video w-full bg-black border-b border-white/10 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
                   {cat.video ? (
                     getYoutubeEmbedUrl(cat.video.videoUrl) ? (
                       <iframe
@@ -215,7 +215,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full object-contain"
                       />
                     ) : (
                       <video
@@ -234,8 +234,8 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                 </div>
 
                 {/* Card Content */}
-                <div className="p-4 flex flex-col gap-3 flex-grow justify-between">
-                  <div className="flex flex-col gap-2">
+                <div className="p-4 flex flex-col gap-2.5 flex-grow justify-between min-h-0">
+                  <div className="flex flex-col gap-1.5 min-h-0 flex-1">
                     {/* Header: Icon + Category Name */}
                     <div className="flex items-center gap-2">
                       <IconComponent className={`w-4 h-4 ${cat.color}`} strokeWidth={cat.name === "Giới thiệu" ? 3 : 2} />
@@ -250,7 +250,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                     </h4>
 
                     {/* Summary of film / topic */}
-                    <div className="h-[80px] overflow-y-auto pr-1 custom-scrollbar text-[11px] text-gray-400 text-justify leading-relaxed">
+                    <div className="flex-1 min-h-0 overflow-y-auto pr-1 custom-scrollbar text-[11px] text-gray-400 text-justify leading-relaxed">
                       {cat.video ? cat.video.summary : "Vui lòng truy cập trang quản lý để cập nhật thêm video mới cho chủ đề này."}
                     </div>
                   </div>
@@ -259,7 +259,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                   <button
                     id={`topic-navigate-${cat.tabId}`}
                     onClick={() => setActiveTab(cat.tabId)}
-                    className="w-full text-center text-xs font-semibold py-2 rounded-lg bg-white/5 hover:bg-porange hover:text-white transition-all text-gray-300 border border-white/10 hover:border-porange mt-2"
+                    className="w-full text-center text-xs font-semibold py-1.5 rounded-lg bg-white/5 hover:bg-porange hover:text-white transition-all text-gray-300 border border-white/10 hover:border-porange mt-1.5 flex-shrink-0"
                   >
                     Truy cập Kênh
                   </button>
