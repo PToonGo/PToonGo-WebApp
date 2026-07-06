@@ -136,11 +136,18 @@ export default function CategoryPage({
                 {!isPlayingPrimary ? (
                   <div 
                     onClick={() => setIsPlayingPrimary(true)}
-                    className="absolute inset-0 w-full h-full cursor-pointer group flex items-center justify-center bg-cover bg-center"
-                    style={{ backgroundImage: `url(${selectedVideo.thumbnailUrl})` }}
+                    className="absolute inset-0 w-full h-full cursor-pointer group flex items-center justify-center bg-black"
                   >
-                    <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-porange flex items-center justify-center text-white shadow-lg shadow-porange/30 transform group-hover:scale-110 transition-transform duration-300">
+                    <img 
+                      src={selectedVideo.thumbnailUrl} 
+                      alt={selectedVideo.title}
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop";
+                      }}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-porange flex items-center justify-center text-white shadow-[0_0_25px_rgba(249,115,22,0.95)] hover:shadow-[0_0_35px_rgba(249,115,22,1)] border-2 border-white/30 transform group-hover:scale-110 transition-all duration-300 animate-pulse">
                         <Play className="w-8 h-8 fill-current ml-1" />
                       </div>
                     </div>
@@ -225,7 +232,7 @@ export default function CategoryPage({
                   id={`video-card-${video.id}`}
                   key={video.id}
                   onClick={() => setSelectedVideo(video)}
-                  className={`flex flex-col rounded-xl overflow-hidden cursor-pointer flex-grow video-card aspect-[1/1.1] w-full min-h-0
+                  className={`flex flex-col rounded-xl overflow-hidden cursor-pointer flex-grow video-card aspect-[1/1] w-full min-h-0
                     ${isPlaying 
                       ? "border-porange/50 shadow-glow bg-psub/70 scale-101 border-2" 
                       : ""

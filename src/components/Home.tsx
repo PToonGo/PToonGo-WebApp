@@ -160,11 +160,11 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                       </div>
 
                       {/* Right: Small 16:9 Thumbnail */}
-                      <div className="w-28 md:w-36 aspect-video rounded-lg overflow-hidden bg-black/50 relative border border-white/10 flex-shrink-0">
+                      <div className="w-28 md:w-36 aspect-video rounded-lg overflow-hidden bg-black relative border border-white/10 flex-shrink-0">
                         <img
                           src={video.thumbnailUrl}
                           alt={video.title}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain bg-black"
                           onError={(e) => {
                             (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop";
                           }}
@@ -202,7 +202,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
               <div
                 id={`topic-card-${index}`}
                 key={index}
-                className="flex flex-col rounded-xl overflow-hidden video-card flex-grow shadow-lg aspect-[1/1.1] w-full min-h-0"
+                className="flex flex-col rounded-xl overflow-hidden video-card flex-grow shadow-lg aspect-[1/1] w-full min-h-0"
               >
                 {/* 16:9 Video Player on Top with controls to preview directly */}
                 <div className="relative aspect-video w-full bg-black border-b border-white/10 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
