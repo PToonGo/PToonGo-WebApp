@@ -4,6 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Google AI Studio App</title>
+    <script>
+      (function() {
+        try {
+          // Prevent formdata-polyfill or other libraries from executing custom patch blocks
+          if (typeof window !== 'undefined' && window.FormData && !window.FormData.prototype.keys) {
+            window.FormData.prototype.keys = function* () {};
+          }
+          
+          // Define a safe setter for window.fetch and globalThis.fetch to avoid read-only getter errors
+          // while allowing libraries to successfully monkey-patch fetch
+          var currentFetch = window.fetch;
+          if (currentFetch) {
+            Object.defineProperty(window, 'fetch', {
+              get: function() {
+                return currentFetch;
+              },
+              set: function(val) {
+                currentFetch = val;
+              },
+              configurable: true,
+              enumerable: true
+            });
+          }
+        } catch (e) {
+          console.warn("Could not patch window.fetch property descriptor:", e);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

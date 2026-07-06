@@ -41,6 +41,7 @@ export default function CategoryPage({
   const categoryVideos = videos.filter((v) => v.category === category);
 
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [isPlayingPrimary, setIsPlayingPrimary] = useState(false);
   const primaryPlayerRef = useRef<HTMLVideoElement>(null);
 
   // For real-time chat in AI tab
@@ -57,15 +58,20 @@ export default function CategoryPage({
     }
   }, [category, videos]);
 
-  // Handle setting volume to 50% on mount / video change
+  // Reset play state when video changes
   useEffect(() => {
-    if (primaryPlayerRef.current && selectedVideo) {
+    setIsPlayingPrimary(false);
+  }, [selectedVideo]);
+
+  // Handle setting volume to 50% on mount / video play
+  useEffect(() => {
+    if (isPlayingPrimary && primaryPlayerRef.current) {
       primaryPlayerRef.current.volume = 0.5;
       primaryPlayerRef.current.play().catch(() => {
         console.log("Autoplay blocked by browser policy.");
       });
     }
-  }, [selectedVideo]);
+  }, [isPlayingPrimary]);
 
   // Chat Subscription (AI only)
   useEffect(() => {
@@ -101,7 +107,7 @@ export default function CategoryPage({
     <div className="flex flex-col gap-10 pb-12 animate-fade-in duration-500">
       
       {/* 1. Page Banner */}
-      <div id="category-banner" className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-r from-psub/80 via-pblue/40 to-[#303540] border border-white/10 p-8 md:p-12 shadow-xl flex flex-col justify-center gap-2">
+      <div id="category-banner" className="relative w-full rounded-2xl overflow-hidden bg-psub/50 border border-white/10 p-8 md:p-12 shadow-xl flex flex-col justify-center gap-2">
         <div className="absolute top-0 right-0 w-64 h-64 bg-porange/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-pblue/10 rounded-full blur-3xl -ml-16 -mb-16"></div>
         
@@ -127,7 +133,19 @@ export default function CategoryPage({
             {/* Cột trái: Khung trình chiếu video 16:9 */}
             <div className="lg:col-span-7 flex flex-col gap-3 bg-psub/40 p-4 rounded-2xl border border-white/10 shadow-lg">
               <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-white/5 shadow-inner">
-                {getYoutubeEmbedUrl(selectedVideo.videoUrl) ? (
+                {!isPlayingPrimary ? (
+                  <div 
+                    onClick={() => setIsPlayingPrimary(true)}
+                    className="absolute inset-0 w-full h-full cursor-pointer group flex items-center justify-center bg-cover bg-center"
+                    style={{ backgroundImage: `url(${selectedVideo.thumbnailUrl})` }}
+                  >
+                    <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-porange flex items-center justify-center text-white shadow-lg shadow-porange/30 transform group-hover:scale-110 transition-transform duration-300">
+                        <Play className="w-8 h-8 fill-current ml-1" />
+                      </div>
+                    </div>
+                  </div>
+                ) : getYoutubeEmbedUrl(selectedVideo.videoUrl) ? (
                   <iframe
                     id="category-primary-player-yt"
                     src={`${getYoutubeEmbedUrl(selectedVideo.videoUrl)}?autoplay=1`}
@@ -135,7 +153,7 @@ export default function CategoryPage({
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full object-contain"
                   />
                 ) : (
                   <video
@@ -207,7 +225,7 @@ export default function CategoryPage({
                   id={`video-card-${video.id}`}
                   key={video.id}
                   onClick={() => setSelectedVideo(video)}
-                  className={`flex flex-col rounded-xl overflow-hidden cursor-pointer flex-grow video-card aspect-[1/1.2] w-full min-h-0
+                  className={`flex flex-col rounded-xl overflow-hidden cursor-pointer flex-grow video-card aspect-[1/1.1] w-full min-h-0
                     ${isPlaying 
                       ? "border-porange/50 shadow-glow bg-psub/70 scale-101 border-2" 
                       : ""
@@ -237,18 +255,18 @@ export default function CategoryPage({
                   </div>
 
                   {/* Info inside card */}
-                  <div className="p-4 flex flex-col gap-2 flex-grow justify-between min-h-0">
+                  <div className="p-3 md:p-4 flex flex-col gap-1.5 flex-grow justify-between min-h-0">
                     <div className="flex flex-col min-h-0 flex-1">
-                      <h4 className={`font-semibold text-xs line-clamp-1 transition-colors
+                      <h4 className={`font-semibold text-xs line-clamp-1 transition-colors flex-shrink-0
                         ${isPlaying ? "text-porange" : "text-gray-200"}`}
                       >
                         {video.title}
                       </h4>
-                      <div className="flex-1 min-h-0 overflow-y-auto pr-1 custom-scrollbar text-[11px] text-gray-400 text-justify mt-1.5 leading-relaxed">
+                      <div className="flex-1 min-h-0 overflow-y-auto pr-1 custom-scrollbar text-[11px] text-gray-400 text-justify mt-1 leading-relaxed">
                         {video.summary}
                       </div>
                     </div>
-                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/5 text-[10px] text-gray-500 font-mono flex-shrink-0">
+                    <div className="flex items-center justify-between mt-1 pt-1 border-t border-white/5 text-[10px] text-gray-500 font-mono flex-shrink-0">
                       <span>{video.duration}</span>
                       <span>{video.views.toLocaleString()} lượt xem</span>
                     </div>

@@ -202,7 +202,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
               <div
                 id={`topic-card-${index}`}
                 key={index}
-                className="flex flex-col rounded-xl overflow-hidden video-card flex-grow shadow-lg aspect-[1/1.2] w-full min-h-0"
+                className="flex flex-col rounded-xl overflow-hidden video-card flex-grow shadow-lg aspect-[1/1.1] w-full min-h-0"
               >
                 {/* 16:9 Video Player on Top with controls to preview directly */}
                 <div className="relative aspect-video w-full bg-black border-b border-white/10 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
@@ -234,18 +234,18 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                 </div>
 
                 {/* Card Content */}
-                <div className="p-4 flex flex-col gap-2.5 flex-grow justify-between min-h-0">
-                  <div className="flex flex-col gap-1.5 min-h-0 flex-1">
+                <div className="p-3 md:p-4 flex flex-col gap-1.5 flex-grow justify-between min-h-0">
+                  <div className="flex flex-col gap-1 min-h-0 flex-1">
                     {/* Header: Icon + Category Name */}
-                    <div className="flex items-center gap-2">
-                      <IconComponent className={`w-4 h-4 ${cat.color}`} strokeWidth={cat.name === "Giới thiệu" ? 3 : 2} />
-                      <span className={`font-display ${cat.name === "Giới thiệu" ? "font-extrabold" : "font-bold"} text-sm ${cat.color}`}>
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                      <IconComponent className={`w-3.5 h-3.5 ${cat.color}`} strokeWidth={cat.name === "Giới thiệu" ? 3 : 2} />
+                      <span className={`font-display ${cat.name === "Giới thiệu" ? "font-extrabold" : "font-bold"} text-xs ${cat.color}`}>
                         {cat.name}
                       </span>
                     </div>
 
                     {/* Video title inside card */}
-                    <h4 className="font-semibold text-xs text-gray-200 line-clamp-1">
+                    <h4 className="font-semibold text-xs text-gray-200 line-clamp-1 flex-shrink-0">
                       {cat.video ? cat.video.title : "Chưa có video cho chủ đề này"}
                     </h4>
 
@@ -259,7 +259,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                   <button
                     id={`topic-navigate-${cat.tabId}`}
                     onClick={() => setActiveTab(cat.tabId)}
-                    className="w-full text-center text-xs font-semibold py-1.5 rounded-lg bg-white/5 hover:bg-porange hover:text-white transition-all text-gray-300 border border-white/10 hover:border-porange mt-1.5 flex-shrink-0"
+                    className="w-full text-center text-xs font-semibold py-1 rounded-lg bg-white/5 hover:bg-porange hover:text-white transition-all text-gray-300 border border-white/10 hover:border-porange mt-1 flex-shrink-0"
                   >
                     Truy cập Kênh
                   </button>
