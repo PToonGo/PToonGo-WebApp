@@ -69,7 +69,7 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMax: 34,
     currentStatus: "sunny",
     top: "19.6%",
-    left: "45%",
+    left: "44.16%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Trời nắng rực rỡ, gió thu thoang thoảng dịu mát quanh hồ Hoàn Kiếm." },
       { day: "Thứ Ba", status: "stormy", summary: "Ngày nắng nóng nhẹ, chiều tối có khả năng xuất hiện mưa giông giải nhiệt nhanh." },
@@ -87,8 +87,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 25,
     tempMax: 32,
     currentStatus: "sunny",
-    top: "18.4%",
-    left: "64.4%",
+    top: "17.6%",
+    left: "68.6%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Trời trong xanh, sóng êm, vịnh Hạ Long lung linh dưới ánh nắng vàng rực rỡ." },
       { day: "Thứ Ba", status: "sunny", summary: "Nắng đẹp cả ngày, gió biển mát rượi thích hợp cho các hoạt động du thuyền và chèo kayak." },
@@ -106,7 +106,7 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 24,
     tempMax: 32,
     currentStatus: "sunny",
-    top: "34%",
+    top: "33.2%",
     left: "39.6%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Nắng nhẹ, không khí trong lành tại bãi biển Thiên Cầm, sóng êm gió mát dễ chịu." },
@@ -201,8 +201,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 26,
     tempMax: 32,
     currentStatus: "rainy",
-    top: "90%",
-    left: "18%",
+    top: "88.98%",
+    left: "18.1%",
     forecast: [
       { day: "Thứ Hai", status: "rainy", summary: "Mưa rào mùa hè tắm mát rừng đước ngập mặn Năm Căn, không khí trong lành mát rượi." },
       { day: "Thứ Ba", status: "sunny", summary: "Trời hửng nắng ấm sau cơn mưa dài, đất mũi Cà Mau đón những làn gió mát lành." },
@@ -220,7 +220,7 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 27,
     tempMax: 33,
     currentStatus: "sunny",
-    top: "84%",
+    top: "83.2%",
     left: "7.3%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Hoàng hôn buông xuống Bãi Trường nhuộm đỏ cả một vùng trời biển Phú Quốc lãng mạn." },
@@ -239,8 +239,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 26,
     tempMax: 32,
     currentStatus: "windy",
-    top: "91%",
-    left: "38%",
+    top: "91.8%",
+    left: "35.2%",
     forecast: [
       { day: "Thứ Hai", status: "windy", summary: "Gió đại dương thổi lồng lộng qua bãi Đầm Trầu hoang sơ, bầu trời trong vắt thanh bình." },
       { day: "Thứ Ba", status: "sunny", summary: "Thời tiết nắng ráo hiền hòa, sóng vỗ nhẹ nhàng thích hợp viếng nghĩa trang Hàng Dương." },
@@ -542,7 +542,7 @@ export default function CategoryPage({
 
                       {/* Wide Glow Aura Path */}
                       <path 
-                        d="M 40 7.6 L 26.8 10.4 L 45 19.6 L 64.4 18.4 L 39.6 34 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18 90 L 7.3 84" 
+                        d="M 40 7.6 L 26.8 10.4 L 44.16 19.6 L 68.6 17.6 L 39.6 33.2 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18.1 88.98 L 7.3 83.2" 
                         fill="none" 
                         stroke="url(#cyber-grad-map)" 
                         strokeWidth="2.5" 
@@ -552,7 +552,7 @@ export default function CategoryPage({
 
                       {/* Main Dynamic Neon Travel Line (North to South) */}
                       <path 
-                        d="M 40 7.6 L 26.8 10.4 L 45 19.6 L 64.4 18.4 L 39.6 34 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18 90 L 7.3 84" 
+                        d="M 40 7.6 L 26.8 10.4 L 44.16 19.6 L 68.6 17.6 L 39.6 33.2 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18.1 88.98 L 7.3 83.2" 
                         fill="none" 
                         stroke="url(#cyber-grad-map)" 
                         strokeWidth="1.5" 
@@ -562,17 +562,17 @@ export default function CategoryPage({
 
                       {/* Fine Bright Core Line */}
                       <path 
-                        d="M 40 7.6 L 26.8 10.4 L 45 19.6 L 64.4 18.4 L 39.6 34 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18 90 L 7.3 84" 
+                        d="M 40 7.6 L 26.8 10.4 L 44.16 19.6 L 68.6 17.6 L 39.6 33.2 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18.1 88.98 L 7.3 83.2" 
                         fill="none" 
                         stroke="#ffffff" 
                         strokeWidth="0.5" 
                         opacity="0.9"
                       />
 
-                      <circle cx="38" cy="91" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
-                      <circle cx="38" cy="91" r="0.8" fill="#f97316" />
-                      <circle cx="7.3" cy="84" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
-                      <circle cx="7.3" cy="84" r="0.8" fill="#f97316" />
+                      <circle cx="35.2" cy="91.8" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
+                      <circle cx="35.2" cy="91.8" r="0.8" fill="#f97316" />
+                      <circle cx="7.3" cy="83.2" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
+                      <circle cx="7.3" cy="83.2" r="0.8" fill="#f97316" />
                     </svg>
 
                     {/* Location Nodes */}
