@@ -87,7 +87,7 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 25,
     tempMax: 32,
     currentStatus: "sunny",
-    top: "20%",
+    top: "18.4%",
     left: "64.4%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Trời trong xanh, sóng êm, vịnh Hạ Long lung linh dưới ánh nắng vàng rực rỡ." },
@@ -106,7 +106,7 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 24,
     tempMax: 32,
     currentStatus: "sunny",
-    top: "32.4%",
+    top: "34%",
     left: "39.6%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Nắng nhẹ, không khí trong lành tại bãi biển Thiên Cầm, sóng êm gió mát dễ chịu." },
@@ -125,8 +125,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 24,
     tempMax: 31,
     currentStatus: "rainy",
-    top: "44.8%",
-    left: "54.8%",
+    top: "46.4%",
+    left: "57.6%",
     forecast: [
       { day: "Thứ Hai", status: "rainy", summary: "Mưa bay lãng đãng trên dòng sông Hương, tạo nên vẻ trầm mặc cổ kính của cố đô." },
       { day: "Thứ Ba", status: "rainy", summary: "Mưa rào rải rác ngắt quãng, trời mát mẻ, chiều tối có sương mờ mờ ảo ảo." },
@@ -145,7 +145,7 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMax: 33,
     currentStatus: "sunny",
     top: "49.2%",
-    left: "61.3%",
+    left: "66.9%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Nắng đẹp rực rỡ trên bãi biển Mỹ Khê, sóng vỗ nhẹ nhàng thích hợp tắm biển." },
       { day: "Thứ Ba", status: "sunny", summary: "Trời trong xanh, tầm nhìn tuyệt vời từ đỉnh bán đảo Sơn Trà và chùa Linh Ứng." },
@@ -164,7 +164,7 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMax: 34,
     currentStatus: "sunny",
     top: "70.4%",
-    left: "77.3%",
+    left: "71.7%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Nắng vàng biển xanh cát trắng, vịnh Nha Trang hiền hòa đón du khách tham quan." },
       { day: "Thứ Ba", status: "sunny", summary: "Trời quang đãng tuyệt đối, sóng nhẹ êm đềm cực kỳ thuận lợi cho tour lặn ngắm san hô." },
@@ -542,7 +542,7 @@ export default function CategoryPage({
 
                       {/* Wide Glow Aura Path */}
                       <path 
-                        d="M 40 7.6 L 26.8 10.4 L 45 19.6 L 64.4 20 L 39.6 32.4 L 54.8 44.8 L 61.3 49.2 L 77.3 70.4 L 46 82 L 18 90 L 7.3 84" 
+                        d="M 40 7.6 L 26.8 10.4 L 45 19.6 L 64.4 18.4 L 39.6 34 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18 90 L 7.3 84" 
                         fill="none" 
                         stroke="url(#cyber-grad-map)" 
                         strokeWidth="2.5" 
@@ -552,7 +552,7 @@ export default function CategoryPage({
 
                       {/* Main Dynamic Neon Travel Line (North to South) */}
                       <path 
-                        d="M 40 7.6 L 26.8 10.4 L 45 19.6 L 64.4 20 L 39.6 32.4 L 54.8 44.8 L 61.3 49.2 L 77.3 70.4 L 46 82 L 18 90 L 7.3 84" 
+                        d="M 40 7.6 L 26.8 10.4 L 45 19.6 L 64.4 18.4 L 39.6 34 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18 90 L 7.3 84" 
                         fill="none" 
                         stroke="url(#cyber-grad-map)" 
                         strokeWidth="1.5" 
@@ -562,7 +562,7 @@ export default function CategoryPage({
 
                       {/* Fine Bright Core Line */}
                       <path 
-                        d="M 40 7.6 L 26.8 10.4 L 45 19.6 L 64.4 20 L 39.6 32.4 L 54.8 44.8 L 61.3 49.2 L 77.3 70.4 L 46 82 L 18 90 L 7.3 84" 
+                        d="M 40 7.6 L 26.8 10.4 L 45 19.6 L 64.4 18.4 L 39.6 34 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18 90 L 7.3 84" 
                         fill="none" 
                         stroke="#ffffff" 
                         strokeWidth="0.5" 
