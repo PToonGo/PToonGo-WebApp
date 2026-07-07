@@ -401,9 +401,9 @@ export default function CategoryPage({
         {selectedVideo ? (
           category === "Du lịch trải nghiệm" ? (
             /* 2-column layout for Travel Tab */
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-stretch">
               {/* Left Column: "Hành trình mới" */}
-              <div className="xl:col-span-5 flex flex-col gap-6 bg-psub/40 p-5 rounded-2xl border border-white/10 shadow-lg">
+              <div className="xl:col-span-5 flex flex-col gap-6 bg-psub/40 p-5 rounded-2xl border border-white/10 shadow-lg self-stretch h-full">
                 <div className="border-b border-white/10 pb-2">
                   <h3 className="text-base font-display font-semibold text-white tracking-wide flex items-center gap-2">
                     <Play className="w-4 h-4 text-porange fill-current" />
@@ -456,7 +456,7 @@ export default function CategoryPage({
                 </div>
 
                 {/* Title, category, summary below video player */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 flex-grow">
                   <div className="flex items-center justify-between">
                     <span className="px-3 py-0.5 text-[10px] uppercase font-mono font-bold tracking-wider bg-porange/15 text-porange border border-porange/25 rounded-full">
                       {selectedVideo.category}
@@ -472,7 +472,7 @@ export default function CategoryPage({
                     <p>{selectedVideo.summary}</p>
                   </div>
 
-                  <div className="flex items-center gap-6 text-xs text-gray-400 font-mono border-t border-white/10 pt-4 mt-2">
+                  <div className="flex items-center gap-6 text-xs text-gray-400 font-mono border-t border-white/10 pt-4 mt-auto">
                     <span className="flex items-center gap-1">
                       <Clock className="w-4 h-4 text-porange" />
                       Thời lượng: {selectedVideo.duration}
