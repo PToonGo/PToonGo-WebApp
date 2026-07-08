@@ -119,22 +119,22 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     ]
   },
   {
-    id: "hatinh",
-    name: "Hà Tĩnh",
-    fullName: "Hà Tĩnh",
+    id: "nghean",
+    name: "Nghệ An",
+    fullName: "Nghệ An",
     tempMin: 24,
     tempMax: 32,
     currentStatus: "sunny",
-    top: "32.4%",
+    top: "31.47%",
     left: "32.6%",
     forecast: [
-      { day: "Thứ Hai", status: "sunny", summary: "Nắng nhẹ, không khí trong lành tại bãi biển Thiên Cầm, sóng êm gió mát dễ chịu." },
-      { day: "Thứ Ba", status: "sunny", summary: "Thời tiết khô ráo, ngày nắng ráo rất thuận lợi cho việc viếng Ngã ba Đồng Lộc." },
-      { day: "Thứ Tư", status: "cloudy", summary: "Mây nhẹ bao phủ bớt nắng nóng trưa chiều, tối mát mẻ thích hợp dạo chơi kỳ thú." },
-      { day: "Thứ Năm", status: "windy", summary: "Gió mát núi Hồng Lĩnh thổi đều, bầu trời trong lành sảng khoái." },
-      { day: "Thứ Sáu", status: "sunny", summary: "Trời nắng đẹp cả ngày, thích hợp cho các hoạt động tham quan di tích lịch sử Nguyễn Du." },
-      { day: "Thứ Bảy", status: "cloudy", summary: "Có mây rải rác che mát dải đất miền Trung, nhiệt độ ôn hòa dễ chịu." },
-      { day: "Chủ Nhật", status: "sunny", summary: "Ngày cuối tuần đầy nắng ấm, không khí trong lành tuyệt đối, sóng vỗ êm đềm." }
+      { day: "Thứ Hai", status: "sunny", summary: "Nắng nhẹ, không khí trong lành tại bãi biển Cửa Lò, sóng êm gió mát dễ chịu." },
+      { day: "Thứ Ba", status: "sunny", summary: "Thời tiết khô ráo, ngày nắng ráo rất thuận lợi cho việc viếng thăm Quê Bác tại Nam Đàn." },
+      { day: "Thứ Tư", status: "cloudy", summary: "Mây nhẹ bao phủ bớt nắng nóng trưa chiều, tối mát mẻ thích hợp dạo quanh thành phố Vinh." },
+      { day: "Thứ Năm", status: "windy", summary: "Gió mát từ sông Lam thổi đều, bầu trời trong lành sảng khoái." },
+      { day: "Thứ Sáu", status: "sunny", summary: "Trời nắng đẹp cả ngày, thích hợp cho các hoạt động tham quan quảng trường Hồ Chí Minh." },
+      { day: "Thứ Bảy", status: "cloudy", summary: "Có mây rải rác che mát thung lũng miền Tây Nghệ An, nhiệt độ ôn hòa dễ chịu." },
+      { day: "Chủ Nhật", status: "sunny", summary: "Ngày cuối tuần đầy nắng ấm, không khí trong lành tuyệt đối, dạo bước vườn quốc gia Pù Mát." }
     ]
   },
   {
@@ -354,6 +354,31 @@ const getYoutubeEmbedUrl = (url: string): string | null => {
     return `https://www.youtube.com/embed/${videoId}`;
   }
   return null;
+};
+
+const getDailyTempRange = (baseMin: number, baseMax: number, dayIndex: number, status: string) => {
+  const offsets = [0, 1, -1, 0, 2, 1, -1];
+  const offset = offsets[dayIndex % offsets.length];
+  
+  let min = baseMin + offset;
+  let max = baseMax + offset;
+  
+  if (status === "sunny") {
+    max += 1;
+  } else if (status === "rainy" || status === "stormy") {
+    min -= 1;
+    max -= 2;
+  } else if (status === "cloudy") {
+    max -= 1;
+  } else if (status === "windy") {
+    min -= 1;
+  }
+  
+  if (min >= max) {
+    min = max - 2;
+  }
+  
+  return { min, max };
 };
 
 interface CategoryPageProps {
@@ -619,7 +644,7 @@ export default function CategoryPage({
 
                       {/* Wide Glow Aura Path */}
                       <path 
-                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 32.4 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
+                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
                         fill="none" 
                         stroke="url(#cyber-grad-map)" 
                         strokeWidth="2.5" 
@@ -629,7 +654,7 @@ export default function CategoryPage({
 
                       {/* Main Dynamic Neon Travel Line (North to South) */}
                       <path 
-                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 32.4 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
+                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
                         fill="none" 
                         stroke="url(#cyber-grad-map)" 
                         strokeWidth="1.5" 
@@ -639,7 +664,7 @@ export default function CategoryPage({
 
                       {/* Fine Bright Core Line */}
                       <path 
-                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 32.4 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
+                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
                         fill="none" 
                         stroke="#ffffff" 
                         strokeWidth="0.5" 
@@ -752,32 +777,39 @@ export default function CategoryPage({
                         Dự báo hành trình 7 ngày tới:
                       </span>
                       <div className="flex-1 flex flex-col gap-1 md:gap-1.5 min-h-0 justify-between">
-                        {selectedLocation.forecast.map((fc, i) => (
-                          <div
-                            key={i}
-                            className="flex-1 flex items-center justify-between bg-black/30 border border-white/5 hover:border-white/10 px-3 py-1 rounded-xl gap-3 transition-colors duration-200 min-h-0"
-                          >
-                            {/* Left Info: Bold location + details */}
-                            <div className="flex-grow flex flex-col gap-0.5 min-h-0 justify-center">
-                              <div className="flex items-baseline gap-2">
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-white">
-                                  {selectedLocation.fullName.toUpperCase()}
-                                </span>
-                                <span className="text-[9px] font-mono text-porange font-medium">
-                                  {fc.day}
-                                </span>
+                        {selectedLocation.forecast.map((fc, i) => {
+                          const tempRange = getDailyTempRange(selectedLocation.tempMin, selectedLocation.tempMax, i, fc.status);
+                          return (
+                            <div
+                              key={i}
+                              className="flex-1 flex items-center justify-between bg-black/30 border border-white/5 hover:border-white/10 px-3 py-1 rounded-xl gap-3 transition-colors duration-200 min-h-0"
+                            >
+                              {/* Left Info: Bold location + details */}
+                              <div className="flex-grow flex flex-col gap-0.5 min-h-0 justify-center">
+                                <div className="flex items-baseline gap-2">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-white">
+                                    {selectedLocation.fullName.toUpperCase()}
+                                  </span>
+                                  <span className="text-[9px] font-mono text-porange font-medium">
+                                    {fc.day}
+                                  </span>
+                                  <span className="text-[9px] font-mono text-gray-400 ml-auto flex items-center gap-1 bg-white/5 px-1.5 py-0.5 rounded border border-white/5">
+                                    <Thermometer className="w-2.5 h-2.5 text-porange/85" />
+                                    {tempRange.min}°C - {tempRange.max}°C
+                                  </span>
+                                </div>
+                                <p className="text-[10px] text-gray-400 text-justify leading-tight line-clamp-2">
+                                  {fc.summary}
+                                </p>
                               </div>
-                              <p className="text-[10px] text-gray-400 text-justify leading-tight line-clamp-2">
-                                {fc.summary}
-                              </p>
-                            </div>
 
-                            {/* Right Info: Animated icon */}
-                            <div className="flex-shrink-0 bg-black/40 p-1.5 rounded-lg border border-white/5 flex items-center justify-center">
-                              {getWeatherIcon(fc.status, "w-[30px] h-[30px]")}
+                              {/* Right Info: Animated icon */}
+                              <div className="flex-shrink-0 bg-black/40 p-1.5 rounded-lg border border-white/5 flex items-center justify-center">
+                                {getWeatherIcon(fc.status, "w-[30px] h-[30px]")}
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
