@@ -30,8 +30,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 14,
     tempMax: 22,
     currentStatus: "cloudy",
-    top: "10.4%",
-    left: "26.8%",
+    top: "8.24%",
+    left: "18.4%",
     forecast: [
       { day: "Thứ Hai", status: "cloudy", summary: "Sương mù dày đặc vào sáng sớm, trời lạnh sâu về đêm, thích hợp thưởng thức đồ nướng Bản Phố." },
       { day: "Thứ Ba", status: "sunny", summary: "Trời hửng nắng nhẹ trưa chiều, mây bồng bềnh phủ đỉnh Fansipan, cảnh sắc mộng mơ." },
@@ -49,8 +49,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 16,
     tempMax: 24,
     currentStatus: "windy",
-    top: "7.6%",
-    left: "40%",
+    top: "4.4%",
+    left: "29.64%",
     forecast: [
       { day: "Thứ Hai", status: "windy", summary: "Gió núi lồng lộng thổi qua đèo Mã Pí Lèng, trời se lạnh và khô ráo." },
       { day: "Thứ Ba", status: "sunny", summary: "Trời quang mây tạnh, thung lũng Sủng Là rực rỡ sắc hoa tam giác mạch dưới nắng." },
@@ -68,8 +68,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 26,
     tempMax: 34,
     currentStatus: "sunny",
-    top: "19.6%",
-    left: "44.16%",
+    top: "16.64%",
+    left: "32.96%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Trời nắng rực rỡ, gió thu thoang thoảng dịu mát quanh hồ Hoàn Kiếm." },
       { day: "Thứ Ba", status: "stormy", summary: "Ngày nắng nóng nhẹ, chiều tối có khả năng xuất hiện mưa giông giải nhiệt nhanh." },
@@ -87,8 +87,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 25,
     tempMax: 32,
     currentStatus: "sunny",
-    top: "17.6%",
-    left: "68.6%",
+    top: "14.88%",
+    left: "49.0%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Trời trong xanh, sóng êm, vịnh Hạ Long lung linh dưới ánh nắng vàng rực rỡ." },
       { day: "Thứ Ba", status: "sunny", summary: "Nắng đẹp cả ngày, gió biển mát rượi thích hợp cho các hoạt động du thuyền và chèo kayak." },
@@ -100,14 +100,33 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     ]
   },
   {
+    id: "thanhhoa",
+    name: "Thanh Hóa",
+    fullName: "Thanh Hóa",
+    tempMin: 25,
+    tempMax: 33,
+    currentStatus: "sunny",
+    top: "25.3%",
+    left: "33.9%",
+    forecast: [
+      { day: "Thứ Hai", status: "sunny", summary: "Trời nắng ráo, lộng gió thích hợp tắm biển Sầm Sơn, tận hưởng hải sản tươi ngon." },
+      { day: "Thứ Ba", status: "sunny", summary: "Nắng nhẹ, gió biển ôn hòa thích hợp ghé thăm Thành nhà Hồ cổ kính và uy nghiêm." },
+      { day: "Thứ Tư", status: "cloudy", summary: "Mây nhẹ rải rác che bớt nắng nóng, thời tiết lý tưởng để dạo quanh khu bảo tồn Pù Luông." },
+      { day: "Thứ Năm", status: "sunny", summary: "Thời tiết trong lành ấm áp, thích hợp dã ngoại khám phá suối cá thần Cẩm Lương kỳ thú." },
+      { day: "Thứ Sáu", status: "rainy", summary: "Cơn mưa rào bất chợt mát mẻ giữa ngày, tạnh nhanh và không khí trở nên sảng khoái cực kỳ." },
+      { day: "Thứ Bảy", status: "sunny", summary: "Ngày cuối tuần đầy nắng vàng tươi tắn dạo chơi khu du lịch Hải Tiến trong lành." },
+      { day: "Chủ Nhật", status: "sunny", summary: "Thời tiết hoàn hảo đầy nắng ấm, thuận lợi cho mọi hoạt động khám phá văn hóa xứ Thanh." }
+    ]
+  },
+  {
     id: "hatinh",
     name: "Hà Tĩnh",
     fullName: "Hà Tĩnh",
     tempMin: 24,
     tempMax: 32,
     currentStatus: "sunny",
-    top: "33.2%",
-    left: "39.6%",
+    top: "32.4%",
+    left: "32.6%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Nắng nhẹ, không khí trong lành tại bãi biển Thiên Cầm, sóng êm gió mát dễ chịu." },
       { day: "Thứ Ba", status: "sunny", summary: "Thời tiết khô ráo, ngày nắng ráo rất thuận lợi cho việc viếng Ngã ba Đồng Lộc." },
@@ -125,8 +144,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 24,
     tempMax: 31,
     currentStatus: "rainy",
-    top: "46.4%",
-    left: "57.6%",
+    top: "44.8%",
+    left: "50.6%",
     forecast: [
       { day: "Thứ Hai", status: "rainy", summary: "Mưa bay lãng đãng trên dòng sông Hương, tạo nên vẻ trầm mặc cổ kính của cố đô." },
       { day: "Thứ Ba", status: "rainy", summary: "Mưa rào rải rác ngắt quãng, trời mát mẻ, chiều tối có sương mờ mờ ảo ảo." },
@@ -144,8 +163,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 25,
     tempMax: 33,
     currentStatus: "sunny",
-    top: "49.2%",
-    left: "66.9%",
+    top: "48.51%",
+    left: "54.86%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Nắng đẹp rực rỡ trên bãi biển Mỹ Khê, sóng vỗ nhẹ nhàng thích hợp tắm biển." },
       { day: "Thứ Ba", status: "sunny", summary: "Trời trong xanh, tầm nhìn tuyệt vời từ đỉnh bán đảo Sơn Trà và chùa Linh Ứng." },
@@ -157,6 +176,25 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     ]
   },
   {
+    id: "quinhon",
+    name: "Qui Nhơn",
+    fullName: "Qui Nhơn (Bình Định)",
+    tempMin: 25,
+    tempMax: 32,
+    currentStatus: "sunny",
+    top: "62.67%",
+    left: "63.01%",
+    forecast: [
+      { day: "Thứ Hai", status: "sunny", summary: "Nắng ấm chan hòa, bãi biển vầng trăng khuyết Ghềnh Ráng Quy Hòa sóng vỗ hiền hòa." },
+      { day: "Thứ Ba", status: "sunny", summary: "Trời quang mây tạnh, gió biển mát rượi vô cùng thuận lợi đi cano ra đảo Kỳ Co." },
+      { day: "Thứ Tư", status: "sunny", summary: "Nắng rực rỡ từ sớm, biển trong vắt như gương soi rõ rặng san hô hòn Khô rực rỡ." },
+      { day: "Thứ Năm", status: "cloudy", summary: "Mây mỏng che bớt nắng gắt trưa chiều, thời tiết mát mẻ thích hợp dạo Eo Gió lộng gió." },
+      { day: "Thứ Sáu", status: "sunny", summary: "Ngày nắng ráo mát mẻ, thích hợp viếng thăm Tháp Đôi kiến trúc Chăm cổ kính độc đáo." },
+      { day: "Thứ Bảy", status: "rainy", summary: "Có mưa rào nhẹ rải rác chớp nhoáng xế chiều, tối mát mẻ lộng gió thích hợp đi dạo." },
+      { day: "Chủ Nhật", status: "sunny", summary: "Thời tiết lý tưởng cho chuyến dã ngoại, nắng vàng lấp lánh cát trắng bãi tắm Hoàng Hậu." }
+    ]
+  },
+  {
     id: "nhatrang",
     name: "Nha Trang",
     fullName: "Nha Trang",
@@ -164,7 +202,7 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMax: 34,
     currentStatus: "sunny",
     top: "70.4%",
-    left: "71.7%",
+    left: "63.3%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Nắng vàng biển xanh cát trắng, vịnh Nha Trang hiền hòa đón du khách tham quan." },
       { day: "Thứ Ba", status: "sunny", summary: "Trời quang đãng tuyệt đối, sóng nhẹ êm đềm cực kỳ thuận lợi cho tour lặn ngắm san hô." },
@@ -176,14 +214,33 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     ]
   },
   {
+    id: "dalat",
+    name: "Đà Lạt",
+    fullName: "Đà Lạt (Lâm Đồng)",
+    tempMin: 15,
+    tempMax: 24,
+    currentStatus: "cloudy",
+    top: "75.59%",
+    left: "57.46%",
+    forecast: [
+      { day: "Thứ Hai", status: "cloudy", summary: "Sương mù mờ ảo bao phủ hồ Xuân Hương lúc sáng sớm, trời se se lạnh lãng mạn." },
+      { day: "Thứ Ba", status: "sunny", summary: "Nắng vàng rực rỡ len lỏi qua rặng thông xanh, thời tiết tuyệt đẹp để đi dạo Thung Lũng Tình Yêu." },
+      { day: "Thứ Tư", status: "cloudy", summary: "Trời nhiều mây, không khí mát mẻ cả ngày, tối có sương mù nhẹ đặc trưng cao nguyên." },
+      { day: "Thứ Năm", status: "sunny", summary: "Nắng ấm chan hòa muôn hoa rực rỡ sắc màu, thích hợp check-in ga Đà Lạt." },
+      { day: "Thứ Sáu", status: "rainy", summary: "Khả năng có mưa rào nhẹ vào đầu giờ chiều, trời nhanh chóng tạnh ráo và mát mẻ." },
+      { day: "Thứ Bảy", status: "sunny", summary: "Thời tiết trong lành ấm áp, buổi tối se lạnh rất thích hợp dạo chợ đêm Đà Lạt." },
+      { day: "Chủ Nhật", status: "sunny", summary: "Nắng vàng ươm dịu ngọt trải đều cao nguyên, không khí trong lành sảng khoái tuyệt đối." }
+    ]
+  },
+  {
     id: "vungtau",
     name: "Vũng Tàu",
     fullName: "Vũng Tàu",
     tempMin: 27,
     tempMax: 33,
     currentStatus: "windy",
-    top: "82%",
-    left: "46%",
+    top: "82.8%",
+    left: "48.8%",
     forecast: [
       { day: "Thứ Hai", status: "windy", summary: "Gió biển thổi mạnh mẽ qua Bãi Sau, bầu trời trong lành lộng gió biển mát rượi." },
       { day: "Thứ Ba", status: "sunny", summary: "Ngày nắng ráo, gió lộng mát mẻ, thích hợp ghé thăm ngọn hải đăng Vũng Tàu." },
@@ -195,14 +252,33 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     ]
   },
   {
+    id: "vinhlong",
+    name: "Vĩnh Long",
+    fullName: "Vĩnh Long",
+    tempMin: 25,
+    tempMax: 33,
+    currentStatus: "sunny",
+    top: "86.3%",
+    left: "34.9%",
+    forecast: [
+      { day: "Thứ Hai", status: "sunny", summary: "Nắng ấm chan hòa trên những vườn chôm chôm quả chín đỏ mọng bạt ngàn." },
+      { day: "Thứ Ba", status: "sunny", summary: "Trời trong xanh, sóng nước êm đềm dọc sông Cổ Chiên thuận lợi đi thuyền du khảo miền Tây." },
+      { day: "Thứ Tư", status: "cloudy", summary: "Mây nhẹ che mát bớt nắng trưa, gió sông mát rượi lồng lộng thổi qua cù lao An Bình." },
+      { day: "Thứ Năm", status: "sunny", summary: "Thời tiết ráo mát hoàn hảo để trải nghiệm cuộc sống miệt vườn trù phú." },
+      { day: "Thứ Sáu", status: "rainy", summary: "Mưa rào nhẹ xế chiều mát rượi đất đai miền sông nước, tạnh nhanh đón hoàng hôn." },
+      { day: "Thứ Bảy", status: "sunny", summary: "Nắng đẹp rực rỡ thích hợp tham quan lò gạch Mang Thít, khám phá vương quốc đỏ." },
+      { day: "Chủ Nhật", status: "sunny", summary: "Ngày cuối tuần tràn đầy nắng ấm thanh bình, không khí sông nước ngọt ngào trong lành." }
+    ]
+  },
+  {
     id: "camau",
     name: "Cà Mau",
     fullName: "Cà Mau",
     tempMin: 26,
     tempMax: 32,
     currentStatus: "rainy",
-    top: "88.98%",
-    left: "18.1%",
+    top: "91.54%",
+    left: "26.5%",
     forecast: [
       { day: "Thứ Hai", status: "rainy", summary: "Mưa rào mùa hè tắm mát rừng đước ngập mặn Năm Căn, không khí trong lành mát rượi." },
       { day: "Thứ Ba", status: "sunny", summary: "Trời hửng nắng ấm sau cơn mưa dài, đất mũi Cà Mau đón những làn gió mát lành." },
@@ -220,8 +296,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 27,
     tempMax: 33,
     currentStatus: "sunny",
-    top: "83.2%",
-    left: "7.3%",
+    top: "83.07%",
+    left: "15.7%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Hoàng hôn buông xuống Bãi Trường nhuộm đỏ cả một vùng trời biển Phú Quốc lãng mạn." },
       { day: "Thứ Ba", status: "sunny", summary: "Nắng vàng rực rỡ, sóng êm nước trong như pha lê tại quần đảo An Thới." },
@@ -239,8 +315,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 26,
     tempMax: 32,
     currentStatus: "windy",
-    top: "91.8%",
-    left: "35.2%",
+    top: "95.0%",
+    left: "40.8%",
     forecast: [
       { day: "Thứ Hai", status: "windy", summary: "Gió đại dương thổi lồng lộng qua bãi Đầm Trầu hoang sơ, bầu trời trong vắt thanh bình." },
       { day: "Thứ Ba", status: "sunny", summary: "Thời tiết nắng ráo hiền hòa, sóng vỗ nhẹ nhàng thích hợp viếng nghĩa trang Hàng Dương." },
@@ -494,9 +570,10 @@ export default function CategoryPage({
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 flex-grow">
-                  {/* Left Panel: Vietnam Tech AI Map (md:col-span-5) */}
-                  <div className="md:col-span-5 relative bg-gradient-to-b from-black/80 to-black/95 border border-white/10 rounded-xl aspect-[9/16] w-full overflow-hidden shadow-2xl">
+                <div className="grid grid-cols-1 md:grid-cols-[11fr_13fr] gap-5 flex-grow">
+                  {/* Left Panel: Vietnam Tech AI Map */}
+                  <div className="flex justify-center">
+                    <div className="relative bg-gradient-to-b from-black/80 to-black/95 border border-white/10 rounded-xl aspect-[8/12] w-full h-auto md:h-full md:w-auto overflow-hidden shadow-2xl">
                     {/* Background 3D Vietnam Map Image */}
                     <div 
                       className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 pointer-events-none"
@@ -542,7 +619,7 @@ export default function CategoryPage({
 
                       {/* Wide Glow Aura Path */}
                       <path 
-                        d="M 40 7.6 L 26.8 10.4 L 44.16 19.6 L 68.6 17.6 L 39.6 33.2 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18.1 88.98 L 7.3 83.2" 
+                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 32.4 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
                         fill="none" 
                         stroke="url(#cyber-grad-map)" 
                         strokeWidth="2.5" 
@@ -552,7 +629,7 @@ export default function CategoryPage({
 
                       {/* Main Dynamic Neon Travel Line (North to South) */}
                       <path 
-                        d="M 40 7.6 L 26.8 10.4 L 44.16 19.6 L 68.6 17.6 L 39.6 33.2 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18.1 88.98 L 7.3 83.2" 
+                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 32.4 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
                         fill="none" 
                         stroke="url(#cyber-grad-map)" 
                         strokeWidth="1.5" 
@@ -562,17 +639,17 @@ export default function CategoryPage({
 
                       {/* Fine Bright Core Line */}
                       <path 
-                        d="M 40 7.6 L 26.8 10.4 L 44.16 19.6 L 68.6 17.6 L 39.6 33.2 L 57.6 46.4 L 66.9 49.2 L 71.7 70.4 L 46 82 L 18.1 88.98 L 7.3 83.2" 
+                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 32.4 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
                         fill="none" 
                         stroke="#ffffff" 
                         strokeWidth="0.5" 
                         opacity="0.9"
                       />
 
-                      <circle cx="35.2" cy="91.8" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
-                      <circle cx="35.2" cy="91.8" r="0.8" fill="#f97316" />
-                      <circle cx="7.3" cy="83.2" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
-                      <circle cx="7.3" cy="83.2" r="0.8" fill="#f97316" />
+                      <circle cx="40.8" cy="95.0" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
+                      <circle cx="40.8" cy="95.0" r="0.8" fill="#f97316" />
+                      <circle cx="15.7" cy="83.07" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
+                      <circle cx="15.7" cy="83.07" r="0.8" fill="#f97316" />
                     </svg>
 
                     {/* Location Nodes */}
@@ -621,9 +698,10 @@ export default function CategoryPage({
                       AI SATELLITE MAP v2.5
                     </div>
                   </div>
+                </div>
 
-                  {/* Right Panel: Choice Dropdown & 7 Days Forecast (md:col-span-7) */}
-                  <div className="md:col-span-7 flex flex-col gap-4 min-h-0">
+                  {/* Right Panel: Choice Dropdown & 7 Days Forecast */}
+                  <div className="flex flex-col gap-4 min-h-0">
                     {/* Choose location menu */}
                     <div className="relative">
                       <label className="text-[10px] font-mono uppercase tracking-wider text-gray-400 block mb-1">
