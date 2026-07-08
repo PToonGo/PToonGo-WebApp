@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Video, ChatMessage, UserProfile } from "../types";
 import { subscribeToMessages, addMessageToChat } from "../lib/dbService";
 import { User } from "firebase/auth";
-import { Play, Eye, Clock, MessageSquare, Send, Sparkles, User as UserIcon, Sun, Cloud, CloudRain, CloudLightning, Wind, ChevronDown, MapPin, Thermometer, Calendar } from "lucide-react";
+import { Play, Eye, Clock, MessageSquare, Send, Sparkles, User as UserIcon, Sun, Cloud, CloudRain, CloudLightning, Wind, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, RefreshCw, MapPin, Thermometer, Calendar, ZoomIn, ZoomOut } from "lucide-react";
 
 interface WeatherForecast {
   day: string;
@@ -68,7 +68,7 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 26,
     tempMax: 34,
     currentStatus: "sunny",
-    top: "16.64%",
+    top: "17.2%",
     left: "32.96%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Trời nắng rực rỡ, gió thu thoang thoảng dịu mát quanh hồ Hoàn Kiếm." },
@@ -87,8 +87,8 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     tempMin: 25,
     tempMax: 32,
     currentStatus: "sunny",
-    top: "14.88%",
-    left: "49.0%",
+    top: "13.95%",
+    left: "47.6%",
     forecast: [
       { day: "Thứ Hai", status: "sunny", summary: "Trời trong xanh, sóng êm, vịnh Hạ Long lung linh dưới ánh nắng vàng rực rỡ." },
       { day: "Thứ Ba", status: "sunny", summary: "Nắng đẹp cả ngày, gió biển mát rượi thích hợp cho các hoạt động du thuyền và chèo kayak." },
@@ -412,6 +412,9 @@ export default function CategoryPage({
   // States for weather mapping widget in Travel tab
   const [selectedLocationId, setSelectedLocationId] = useState<string>("hanoi");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [zoomScale, setZoomScale] = useState<number>(1.0);
+  const [panX, setPanX] = useState<number>(0);
+  const [panY, setPanY] = useState<number>(0);
 
   const selectedLocation = TRAVEL_LOCATIONS.find((loc) => loc.id === selectedLocationId) || TRAVEL_LOCATIONS[2];
 
@@ -599,130 +602,223 @@ export default function CategoryPage({
                   {/* Left Panel: Vietnam Tech AI Map */}
                   <div className="flex justify-center">
                     <div className="relative bg-gradient-to-b from-black/80 to-black/95 border border-white/10 rounded-xl aspect-[8/12] w-full h-auto md:h-full md:w-auto overflow-hidden shadow-2xl">
-                    {/* Background 3D Vietnam Map Image */}
-                    <div 
-                      className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 pointer-events-none"
-                      style={{ backgroundImage: "url('/assets/3D_vn_map.png')" }}
-                    />
+                      {/* Zoomable Inner Wrapper */}
+                      <div 
+                        className="w-full h-full relative transition-transform duration-300 ease-out"
+                        style={{ transform: `translate(${panX}px, ${panY}px) scale(${zoomScale})`, transformOrigin: "center center" }}
+                      >
+                        {/* Background 3D Vietnam Map Image */}
+                        <div 
+                          className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 pointer-events-none"
+                          style={{ backgroundImage: "url('/assets/3D_vn_map.png')" }}
+                        />
 
-                    {/* Cyber grids & HUD overlays */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(249,115,22,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(249,115,22,0.03)_1px,transparent_1px)] bg-[size:15px_15px]"></div>
-                    <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/70"></div>
+                        {/* Cyber grids & HUD overlays */}
+                        <div className="absolute inset-0 bg-[linear-gradient(rgba(249,115,22,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(249,115,22,0.03)_1px,transparent_1px)] bg-[size:15px_15px]"></div>
+                        <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/70"></div>
 
-                    {/* Cyber Neon Vietnam Map connection line */}
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-80" viewBox="0 0 100 100" preserveAspectRatio="none">
-                      <style>{`
-                        @keyframes cyber-dash-flow {
-                          to {
-                            stroke-dashoffset: -40;
-                          }
-                        }
-                        @keyframes cyber-pulse {
-                          0%, 100% {
-                            opacity: 0.6;
-                            filter: drop-shadow(0 0 1px #f97316) drop-shadow(0 0 3px #f97316);
-                          }
-                          50% {
-                            opacity: 1;
-                            filter: drop-shadow(0 0 3px #f97316) drop-shadow(0 0 8px #f97316);
-                          }
-                        }
-                        .animate-cyber-flow {
-                          animation: cyber-dash-flow 3s linear infinite;
-                        }
-                        .animate-cyber-pulse {
-                          animation: cyber-pulse 2s ease-in-out infinite;
-                        }
-                      `}</style>
-                      <defs>
-                        <linearGradient id="cyber-grad-map" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#f97316" stopOpacity="0.8" />
-                          <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.7" />
-                          <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
-                        </linearGradient>
-                      </defs>
+                        {/* Cyber Neon Vietnam Map connection line */}
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-80" viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <style>{`
+                            @keyframes cyber-dash-flow {
+                              to {
+                                stroke-dashoffset: -40;
+                              }
+                            }
+                            @keyframes cyber-pulse {
+                              0%, 100% {
+                                opacity: 0.6;
+                                filter: drop-shadow(0 0 1px #f97316) drop-shadow(0 0 3px #f97316);
+                              }
+                              50% {
+                                opacity: 1;
+                                filter: drop-shadow(0 0 3px #f97316) drop-shadow(0 0 8px #f97316);
+                              }
+                            }
+                            .animate-cyber-flow {
+                              animation: cyber-dash-flow 3s linear infinite;
+                            }
+                            .animate-cyber-pulse {
+                              animation: cyber-pulse 2s ease-in-out infinite;
+                            }
+                          `}</style>
+                          <defs>
+                            <linearGradient id="cyber-grad-map" x1="0%" y1="0%" x2="0%" y2="100%">
+                              <stop offset="0%" stopColor="#f97316" stopOpacity="0.8" />
+                              <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.7" />
+                              <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
+                            </linearGradient>
+                          </defs>
 
-                      {/* Wide Glow Aura Path */}
-                      <path 
-                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
-                        fill="none" 
-                        stroke="url(#cyber-grad-map)" 
-                        strokeWidth="2.5" 
-                        opacity="0.3"
-                        className="animate-cyber-pulse"
-                      />
+                          {/* Wide Glow Aura Path */}
+                          <path 
+                            d="M 29.64 4.4 L 18.4 8.24 L 32.96 17.2 L 47.6 13.95 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
+                            fill="none" 
+                            stroke="url(#cyber-grad-map)" 
+                            strokeWidth="2.5" 
+                            opacity="0.3"
+                            className="animate-cyber-pulse"
+                          />
 
-                      {/* Main Dynamic Neon Travel Line (North to South) */}
-                      <path 
-                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
-                        fill="none" 
-                        stroke="url(#cyber-grad-map)" 
-                        strokeWidth="1.5" 
-                        strokeDasharray="6 4"
-                        className="animate-cyber-flow"
-                      />
+                          {/* Main Dynamic Neon Travel Line (North to South) */}
+                          <path 
+                            d="M 29.64 4.4 L 18.4 8.24 L 32.96 17.2 L 47.6 13.95 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
+                            fill="none" 
+                            stroke="url(#cyber-grad-map)" 
+                            strokeWidth="1.5" 
+                            strokeDasharray="6 4"
+                            className="animate-cyber-flow"
+                          />
 
-                      {/* Fine Bright Core Line */}
-                      <path 
-                        d="M 29.64 4.4 L 18.4 8.24 L 32.96 16.64 L 49.0 14.88 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
-                        fill="none" 
-                        stroke="#ffffff" 
-                        strokeWidth="0.5" 
-                        opacity="0.9"
-                      />
+                          {/* Fine Bright Core Line */}
+                          <path 
+                            d="M 29.64 4.4 L 18.4 8.24 L 32.96 17.2 L 47.6 13.95 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
+                            fill="none" 
+                            stroke="#ffffff" 
+                            strokeWidth="0.5" 
+                            opacity="0.9"
+                          />
 
-                      <circle cx="40.8" cy="95.0" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
-                      <circle cx="40.8" cy="95.0" r="0.8" fill="#f97316" />
-                      <circle cx="15.7" cy="83.07" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
-                      <circle cx="15.7" cy="83.07" r="0.8" fill="#f97316" />
-                    </svg>
+                          <circle cx="40.8" cy="95.0" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
+                          <circle cx="40.8" cy="95.0" r="0.8" fill="#f97316" />
+                          <circle cx="15.7" cy="83.07" r="1.5" fill="#f97316" opacity="0.8" className="animate-ping" />
+                          <circle cx="15.7" cy="83.07" r="0.8" fill="#f97316" />
+                        </svg>
 
-                    {/* Location Nodes */}
-                    {TRAVEL_LOCATIONS.map((loc) => {
-                      const isSelected = selectedLocationId === loc.id;
-                      return (
-                        <button
-                          key={loc.id}
-                          onClick={() => {
-                            setSelectedLocationId(loc.id);
-                            setIsDropdownOpen(false);
-                          }}
-                          className="absolute group focus:outline-none transition-all duration-300"
-                          style={{ top: loc.top, left: loc.left }}
-                        >
-                          {/* Pulsing Target Dot */}
-                          <div className="relative flex items-center justify-center">
-                            <div className={`absolute w-3.5 h-3.5 rounded-full animate-ping opacity-60 transition-colors
-                              ${isSelected ? "bg-porange" : "bg-pblue group-hover:bg-porange/50"}`} 
-                            />
-                            <div className={`w-2.5 h-2.5 rounded-full shadow-md border border-white/30 transition-all duration-300
-                              ${isSelected ? "bg-porange scale-110" : "bg-pblue group-hover:bg-porange"}`} 
-                            />
-                          </div>
+                        {/* Location Nodes */}
+                        {TRAVEL_LOCATIONS.map((loc) => {
+                          const isSelected = selectedLocationId === loc.id;
+                          return (
+                            <button
+                              key={loc.id}
+                              onClick={() => {
+                                setSelectedLocationId(loc.id);
+                                setIsDropdownOpen(false);
+                              }}
+                              className="absolute group focus:outline-none transition-all duration-300"
+                              style={{ top: loc.top, left: loc.left }}
+                            >
+                              {/* Pulsing Target Dot */}
+                              <div className="relative flex items-center justify-center">
+                                <div className={`absolute w-3.5 h-3.5 rounded-full animate-ping opacity-60 transition-colors
+                                  ${isSelected ? "bg-porange" : "bg-pblue group-hover:bg-porange/50"}`} 
+                                />
+                                <div className={`w-2.5 h-2.5 rounded-full shadow-md border border-white/30 transition-all duration-300
+                                  ${isSelected ? "bg-porange scale-110" : "bg-pblue group-hover:bg-porange"}`} 
+                                />
+                              </div>
 
-                          {/* Tech badge card floating above the node */}
-                          <div className={`absolute -top-7 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded-md border text-[9px] font-medium transition-all duration-300 shadow-md flex items-center gap-1 whitespace-nowrap
-                            ${isSelected 
-                              ? "bg-black border-porange text-porange font-bold scale-105 z-20 shadow-[0_0_12px_rgba(249,115,22,0.4)]" 
-                              : "bg-black/85 border-white/10 text-gray-300 group-hover:text-white group-hover:border-white/25 z-10"}`}
+                              {/* Tech badge card floating above the node */}
+                              <div className={`absolute -top-7 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded-md border text-[9px] font-medium transition-all duration-300 shadow-md flex items-center gap-1 whitespace-nowrap
+                                ${isSelected 
+                                  ? "bg-black border-porange text-porange font-bold scale-105 z-20 shadow-[0_0_12px_rgba(249,115,22,0.4)]" 
+                                  : "bg-black/85 border-white/10 text-gray-300 group-hover:text-white group-hover:border-white/25 z-10"}`}
+                              >
+                                <span className="max-w-[70px] truncate">{loc.name}</span>
+                                <span className="flex items-center gap-0.5">
+                                  {getWeatherIcon(loc.currentStatus, "w-3 h-3")}
+                                  <span className="font-mono text-[8px]">{loc.tempMin}-{loc.tempMax}°</span>
+                                </span>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* HUD Static Overlays (Not zoomed, always readable) */}
+                      <div className="absolute top-2 left-2 text-[8px] font-mono text-gray-500 bg-black/40 px-1.5 py-0.5 rounded border border-white/5 pointer-events-none z-10 select-none">
+                        GPS COORDS: ACTIVE
+                      </div>
+                      <div className="absolute bottom-2 right-2 text-[8px] font-mono text-gray-500 bg-black/40 px-1.5 py-0.5 rounded border border-white/5 pointer-events-none z-10 select-none">
+                        AI SATELLITE MAP v2.5
+                      </div>
+
+                      {/* Map Controls Group (Zoom & Pan/Move Stacked) */}
+                      <div className="absolute top-2 right-2 flex flex-col items-end gap-2 z-20 pointer-events-none select-none">
+                        {/* Zoom Controls Overlay */}
+                        <div className="flex items-center gap-1 bg-black/30 border border-white/10 px-2 py-1 rounded-lg backdrop-blur-md shadow-lg pointer-events-auto">
+                          <button 
+                            onClick={() => setZoomScale(prev => Math.min(prev + 0.2, 2.5))}
+                            className="p-1 hover:bg-white/10 active:bg-white/20 rounded text-gray-400 hover:text-white transition-colors focus:outline-none flex items-center justify-center"
+                            title="Phóng to"
                           >
-                            <span className="max-w-[70px] truncate">{loc.name}</span>
-                            <span className="flex items-center gap-0.5">
-                              {getWeatherIcon(loc.currentStatus, "w-3 h-3")}
-                              <span className="font-mono text-[8px]">{loc.tempMin}-{loc.tempMax}°</span>
-                            </span>
-                          </div>
-                        </button>
-                      );
-                    })}
+                            <ZoomIn className="w-3.5 h-3.5 text-porange" />
+                          </button>
+                          <div className="w-[1px] h-3 bg-white/10 mx-0.5" />
+                          <button 
+                            onClick={() => setZoomScale(prev => Math.max(prev - 0.2, 1.0))}
+                            className="p-1 hover:bg-white/10 active:bg-white/20 rounded text-gray-400 hover:text-white transition-colors focus:outline-none flex items-center justify-center"
+                            title="Thu nhỏ"
+                          >
+                            <ZoomOut className="w-3.5 h-3.5 text-pblue" />
+                          </button>
+                          <div className="w-[1px] h-3 bg-white/10 mx-0.5" />
+                          <span className="text-[9px] font-mono text-gray-400 min-w-[28px] text-center">
+                            {Math.round(zoomScale * 100)}%
+                          </span>
+                        </div>
 
-                    <div className="absolute top-2 left-2 text-[8px] font-mono text-gray-500 bg-black/40 px-1.5 py-0.5 rounded border border-white/5 pointer-events-none">
-                      GPS COORDS: ACTIVE
+                        {/* Pan/Move Controls Overlay */}
+                        <div className="flex flex-col gap-1.5 bg-black/30 border border-white/10 p-2 rounded-xl backdrop-blur-md shadow-xl w-[94px] pointer-events-auto">
+                          <div className="grid grid-cols-3 gap-1">
+                            {/* Corner */}
+                            <div />
+                            {/* Up */}
+                            <button 
+                              onClick={() => setPanY(prev => prev - 40)}
+                              className="w-6 h-6 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-md flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
+                              title="Lên trên"
+                            >
+                              <ChevronUp className="w-4 h-4 text-porange" />
+                            </button>
+                            {/* Corner */}
+                            <div />
+
+                            {/* Left */}
+                            <button 
+                              onClick={() => setPanX(prev => prev - 40)}
+                              className="w-6 h-6 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-md flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
+                              title="Sang trái"
+                            >
+                              <ChevronLeft className="w-4 h-4 text-porange" />
+                            </button>
+                            {/* Reset */}
+                            <button 
+                              onClick={() => {
+                                setZoomScale(1.0);
+                                setPanX(0);
+                                setPanY(0);
+                              }}
+                              className="w-6 h-6 bg-white/10 hover:bg-white/15 active:bg-white/25 border border-white/15 rounded-md flex items-center justify-center text-gray-300 hover:text-white transition-colors focus:outline-none"
+                              title="Đặt lại bản đồ"
+                            >
+                              <RefreshCw className="w-3.5 h-3.5 text-emerald-400" />
+                            </button>
+                            {/* Right */}
+                            <button 
+                              onClick={() => setPanX(prev => prev + 40)}
+                              className="w-6 h-6 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-md flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
+                              title="Sang phải"
+                            >
+                              <ChevronRight className="w-4 h-4 text-porange" />
+                            </button>
+
+                            {/* Corner */}
+                            <div />
+                            {/* Down */}
+                            <button 
+                              onClick={() => setPanY(prev => prev + 40)}
+                              className="w-6 h-6 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-md flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
+                              title="Xuống dưới"
+                            >
+                              <ChevronDown className="w-4 h-4 text-porange" />
+                            </button>
+                            {/* Corner */}
+                            <div />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="absolute bottom-2 right-2 text-[8px] font-mono text-gray-500 bg-black/40 px-1.5 py-0.5 rounded border border-white/5 pointer-events-none">
-                      AI SATELLITE MAP v2.5
-                    </div>
-                  </div>
                 </div>
 
                   {/* Right Panel: Choice Dropdown & 7 Days Forecast */}
