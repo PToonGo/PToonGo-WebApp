@@ -36,7 +36,7 @@ export default function Header({ activeTab, setActiveTab, user, profile, onLogou
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full glass-effect py-[20px] flex items-center justify-between px-6 md:px-12 border-b border-white/10 shadow-lg shrink-0">
+    <header className="sticky top-0 z-50 w-full bg-black/50 backdrop-blur-md py-[20px] flex items-center justify-between px-6 md:px-12 border-b border-white/10 shadow-lg shrink-0">
       {/* Logo Container */}
       <div 
         id="logo-container"

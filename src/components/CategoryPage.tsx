@@ -759,17 +759,17 @@ export default function CategoryPage({
                         </div>
 
                         {/* Pan/Move Controls Overlay */}
-                        <div className="flex flex-col gap-1.5 bg-black/30 border border-white/10 p-2 rounded-xl backdrop-blur-md shadow-xl w-[94px] pointer-events-auto">
-                          <div className="grid grid-cols-3 gap-1">
+                        <div className="flex items-center justify-center bg-black/30 border border-white/10 p-1.5 rounded-full backdrop-blur-md shadow-xl w-[76px] h-[76px] pointer-events-auto">
+                          <div className="grid grid-cols-3 gap-0.5">
                             {/* Corner */}
                             <div />
                             {/* Up */}
                             <button 
                               onClick={() => setPanY(prev => prev - 40)}
-                              className="w-6 h-6 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-md flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
+                              className="w-5 h-5 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
                               title="Lên trên"
                             >
-                              <ChevronUp className="w-4 h-4 text-porange" />
+                              <ChevronUp className="w-3 h-3 text-porange" />
                             </button>
                             {/* Corner */}
                             <div />
@@ -777,10 +777,10 @@ export default function CategoryPage({
                             {/* Left */}
                             <button 
                               onClick={() => setPanX(prev => prev - 40)}
-                              className="w-6 h-6 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-md flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
+                              className="w-5 h-5 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
                               title="Sang trái"
                             >
-                              <ChevronLeft className="w-4 h-4 text-porange" />
+                              <ChevronLeft className="w-3 h-3 text-porange" />
                             </button>
                             {/* Reset */}
                             <button 
@@ -789,18 +789,18 @@ export default function CategoryPage({
                                 setPanX(0);
                                 setPanY(0);
                               }}
-                              className="w-6 h-6 bg-white/10 hover:bg-white/15 active:bg-white/25 border border-white/15 rounded-md flex items-center justify-center text-gray-300 hover:text-white transition-colors focus:outline-none"
+                              className="w-5 h-5 bg-white/10 hover:bg-white/15 active:bg-white/25 border border-white/15 rounded-full flex items-center justify-center text-gray-300 hover:text-white transition-colors focus:outline-none"
                               title="Đặt lại bản đồ"
                             >
-                              <RefreshCw className="w-3.5 h-3.5 text-emerald-400" />
+                              <RefreshCw className="w-2.5 h-2.5 text-emerald-400" />
                             </button>
                             {/* Right */}
                             <button 
                               onClick={() => setPanX(prev => prev + 40)}
-                              className="w-6 h-6 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-md flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
+                              className="w-5 h-5 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
                               title="Sang phải"
                             >
-                              <ChevronRight className="w-4 h-4 text-porange" />
+                              <ChevronRight className="w-3 h-3 text-porange" />
                             </button>
 
                             {/* Corner */}
@@ -808,10 +808,10 @@ export default function CategoryPage({
                             {/* Down */}
                             <button 
                               onClick={() => setPanY(prev => prev + 40)}
-                              className="w-6 h-6 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-md flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
+                              className="w-5 h-5 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
                               title="Xuống dưới"
                             >
-                              <ChevronDown className="w-4 h-4 text-porange" />
+                              <ChevronDown className="w-3 h-3 text-porange" />
                             </button>
                             {/* Corner */}
                             <div />

@@ -2,7 +2,7 @@ import { Youtube, Facebook, MessageCircle } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="sticky bottom-0 z-50 w-full footer-glass py-[20px] border-t border-white/10 flex flex-col sm:flex-row items-center justify-between px-6 md:px-12 gap-4 shadow-lg text-sm shrink-0">
+    <footer className="sticky bottom-0 z-50 w-full bg-black/50 backdrop-blur-md py-[20px] border-t border-white/10 flex flex-col sm:flex-row items-center justify-between px-6 md:px-12 gap-4 shadow-lg text-sm shrink-0">
       {/* Left section: Copyright */}
       <div id="footer-left">
         <span className="font-medium italic select-none text-gray-400">
