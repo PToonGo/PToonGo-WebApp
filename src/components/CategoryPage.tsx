@@ -402,8 +402,15 @@ export default function CategoryPage({
   profile,
   onNavigateToAuth,
 }: CategoryPageProps) {
-  // Filter videos belonging to this category
-  const categoryVideos = videos.filter((v) => v.category === category);
+  // Filter videos belonging to this category / sub-topic for showcase (Weather videos in travel tab)
+  const showcaseVideos = category === "Du lịch trải nghiệm"
+    ? videos.filter((v) => v.id.startsWith("weather-"))
+    : videos.filter((v) => v.category === category);
+
+  // Filter videos for bottom cards (Travel videos in travel tab)
+  const gridVideos = category === "Du lịch trải nghiệm"
+    ? videos.filter((v) => v.id.startsWith("travel-"))
+    : videos.filter((v) => v.category === category);
 
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [isPlayingPrimary, setIsPlayingPrimary] = useState(false);
@@ -425,8 +432,8 @@ export default function CategoryPage({
 
   // Set default selected video when component mounts or videos change
   useEffect(() => {
-    if (categoryVideos.length > 0) {
-      setSelectedVideo(categoryVideos[0]);
+    if (showcaseVideos.length > 0) {
+      setSelectedVideo(showcaseVideos[0]);
     } else {
       setSelectedVideo(null);
     }
@@ -506,12 +513,12 @@ export default function CategoryPage({
           category === "Du lịch trải nghiệm" ? (
             /* 2-column layout for Travel Tab */
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-stretch">
-              {/* Left Column: "Hành trình mới" */}
+              {/* Left Column: "Thời tiết Du ký" */}
               <div className="xl:col-span-5 flex flex-col gap-6 bg-psub/40 p-5 rounded-2xl border border-white/10 shadow-lg self-stretch h-full">
                 <div className="border-b border-white/10 pb-2">
                   <h3 className="text-base font-display font-semibold text-white tracking-wide flex items-center gap-2">
                     <Play className="w-4 h-4 text-porange fill-current" />
-                    Hành trình mới
+                    Thời tiết Du ký
                   </h3>
                 </div>
 
@@ -589,12 +596,12 @@ export default function CategoryPage({
                 </div>
               </div>
 
-              {/* Right Column: "Thời tiết Du ký" (2 Panels) */}
+              {/* Right Column: "Dự báo thời tiết" (2 Panels) */}
               <div className="xl:col-span-7 flex flex-col gap-4 bg-psub/40 p-5 rounded-2xl border border-white/10 shadow-lg self-stretch">
                 <div className="border-b border-white/10 pb-2">
                   <h3 className="text-base font-display font-semibold text-white tracking-wide flex items-center gap-2">
                     <Sun className="w-4 h-4 text-porange animate-spin" style={{ animationDuration: '15s' }} />
-                    Thời tiết Du ký
+                    Dự báo thời tiết
                   </h3>
                 </div>
 
@@ -1001,17 +1008,17 @@ export default function CategoryPage({
       </section>
 
       {/* 3. Session Chủ đề chính: Các video card còn lại */}
-      {categoryVideos.length > 0 && (
+      {gridVideos.length > 0 && (
         <section id="category-cards-session" className="flex flex-col gap-6">
           <div className="border-b border-white/10 pb-2">
             <h2 className="text-lg font-display font-semibold text-white tracking-wide">
-              Danh Sách Video Trong Kênh ({categoryVideos.length})
+              {category === "Du lịch trải nghiệm" ? "Những hành trình thú vị" : "Danh Sách Video Trong Kênh"} ({gridVideos.length})
             </h2>
           </div>
 
           {/* Flexible Grid for multiple cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categoryVideos.map((video) => {
+            {gridVideos.map((video) => {
               const isPlaying = selectedVideo?.id === video.id;
               return (
                 <div

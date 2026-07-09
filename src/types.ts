@@ -6,7 +6,7 @@ export interface UserProfile {
   createdAt: number;
 }
 
-export type VideoCategory = "Giới thiệu" | "Phim hoạt hình" | "Du lịch trải nghiệm" | "Trao đổi công nghệ AI";
+export type VideoCategory = "Giới thiệu" | "Phim hoạt hình" | "Du lịch trải nghiệm" | "Trao đổi công nghệ AI" | "Dự báo thời tiết";
 
 export interface Video {
   id: string; // generated automatically, e.g., "intro-1", "cartoon-2", "travel-1", "ai-1"

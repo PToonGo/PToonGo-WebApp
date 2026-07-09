@@ -17,7 +17,8 @@ import {
   ListOrdered,
   BookOpen,
   Map,
-  MessageSquare 
+  MessageSquare,
+  Cloud
 } from "lucide-react";
 
 // Helper to extract YouTube video ID and construct high-res thumbnail URL
@@ -83,6 +84,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
         "Phim hoạt hình": "cartoon-",
         "Du lịch trải nghiệm": "travel-",
         "Trao đổi công nghệ AI": "ai-",
+        "Dự báo thời tiết": "weather-",
       };
       const prefix = prefixMap[category];
       const count = videos.filter((v) => v.category === category).length;
@@ -432,6 +434,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
     "Phim hoạt hình",
     "Du lịch trải nghiệm",
     "Trao đổi công nghệ AI",
+    "Dự báo thời tiết",
   ]);
 
   return (
@@ -556,6 +559,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                 <option value="Phim hoạt hình">Phim hoạt hình</option>
                 <option value="Du lịch trải nghiệm">Du lịch trải nghiệm</option>
                 <option value="Trao đổi công nghệ AI">Trao đổi công nghệ AI</option>
+                <option value="Dự báo thời tiết">Dự báo thời tiết</option>
               </select>
             </div>
 
@@ -724,6 +728,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                   group.category === "Phim hoạt hình" ? "text-pgreen" :
                   group.category === "Du lịch trải nghiệm" ? "text-porange" :
                   group.category === "Trao đổi công nghệ AI" ? "text-purple-400" :
+                  group.category === "Dự báo thời tiết" ? "text-cyan-400" :
                   "text-white";
                 
                 const categoryIcons: Record<string, React.ComponentType<any>> = {
@@ -731,6 +736,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                   "Phim hoạt hình": Film,
                   "Du lịch trải nghiệm": Map,
                   "Trao đổi công nghệ AI": MessageSquare,
+                  "Dự báo thời tiết": Cloud,
                 };
                 const IconComponent = categoryIcons[group.category] || Film;
                 const isIntro = group.category === "Giới thiệu";
