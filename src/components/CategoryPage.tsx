@@ -512,7 +512,7 @@ export default function CategoryPage({
         {selectedVideo ? (
           category === "Du lịch trải nghiệm" ? (
             /* 2-column layout for Travel Tab */
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-stretch">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-stretch xl:h-[680px]">
               {/* Left Column: "Thời tiết Du ký" */}
               <div className="xl:col-span-5 flex flex-col gap-6 bg-psub/40 p-5 rounded-2xl border border-white/10 shadow-lg self-stretch h-full">
                 <div className="border-b border-white/10 pb-2">
@@ -607,8 +607,8 @@ export default function CategoryPage({
 
                 <div className="grid grid-cols-1 md:grid-cols-[11fr_13fr] gap-5 flex-grow">
                   {/* Left Panel: Vietnam Tech AI Map */}
-                  <div className="flex justify-center">
-                    <div className="relative bg-gradient-to-b from-black/80 to-black/95 border border-white/10 rounded-xl aspect-[8/12] w-full h-auto md:h-full md:w-auto overflow-hidden shadow-2xl">
+                  <div className="flex justify-center h-full">
+                    <div className="relative bg-gradient-to-b from-black/80 to-black/95 border border-white/10 rounded-xl aspect-[8/12] h-full w-auto overflow-hidden shadow-2xl">
                       {/* Zoomable Inner Wrapper */}
                       <div 
                         className="w-full h-full relative transition-transform duration-300 ease-out"
@@ -882,6 +882,16 @@ export default function CategoryPage({
                       <div className="flex-1 flex flex-col gap-1 md:gap-1.5 min-h-0 justify-between">
                         {selectedLocation.forecast.map((fc, i) => {
                           const tempRange = getDailyTempRange(selectedLocation.tempMin, selectedLocation.tempMax, i, fc.status);
+                          
+                          // Calculate date and day name dynamically starting from today
+                          const date = new Date();
+                          date.setDate(date.getDate() + i);
+                          const dayOfWeek = date.getDay();
+                          const dayNames = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+                          const dayName = dayNames[dayOfWeek];
+                          const dateStr = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}`;
+                          const dayLabel = i === 0 ? `Hôm nay (${dateStr})` : `${dayName} (${dateStr})`;
+
                           return (
                             <div
                               key={i}
@@ -894,7 +904,7 @@ export default function CategoryPage({
                                     {selectedLocation.fullName.toUpperCase()}
                                   </span>
                                   <span className="text-[9px] font-mono text-porange font-medium">
-                                    {fc.day}
+                                    {dayLabel}
                                   </span>
                                   <span className="text-[9px] font-mono text-gray-400 ml-auto flex items-center gap-1 bg-white/5 px-1.5 py-0.5 rounded border border-white/5">
                                     <Thermometer className="w-2.5 h-2.5 text-porange/85" />
@@ -1017,7 +1027,7 @@ export default function CategoryPage({
           </div>
 
           {/* Flexible Grid for multiple cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
             {gridVideos.map((video) => {
               const isPlaying = selectedVideo?.id === video.id;
               return (

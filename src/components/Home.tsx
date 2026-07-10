@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Video } from "../types";
-import { Play, Volume2, Film, Map, MessageSquare, BookOpen } from "lucide-react";
+import { Play, Volume2, Film, Map, MessageSquare, BookOpen, Cloud } from "lucide-react";
 
 const getYoutubeEmbedUrl = (url: string): string | null => {
   if (!url) return null;
@@ -41,16 +41,32 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
     }
   }, [selectedIntroVideo]);
 
-  // Find 1 prominent video card for each of the 4 categories
+  // Find 1 prominent video card for each of the 5 categories
   const categories: { name: string; tabId: string; icon: any; color: string }[] = [
     { name: "Giới thiệu", tabId: "home", icon: BookOpen, color: "text-pblue" },
     { name: "Phim hoạt hình", tabId: "cartoon", icon: Film, color: "text-pgreen" },
     { name: "Du lịch trải nghiệm", tabId: "travel", icon: Map, color: "text-porange" },
     { name: "Trao đổi công nghệ AI", tabId: "ai", icon: MessageSquare, color: "text-purple-400" },
+    { name: "Dự báo thời tiết", tabId: "travel", icon: Cloud, color: "text-cyan-400" },
   ];
 
   const categoryRepresentations = categories.map((cat) => {
-    const catVideo = videos.find((v) => v.category === cat.name) || videos[0];
+    let catVideo: Video | undefined;
+    if (cat.name === "Dự báo thời tiết") {
+      const weatherVideos = videos.filter((v) => v.category === "Dự báo thời tiết" || v.id.startsWith("weather-"));
+      if (weatherVideos.length > 0) {
+        // Sort by createdAt descending to get the newest
+        catVideo = [...weatherVideos].sort((a, b) => b.createdAt - a.createdAt)[0];
+      }
+    } else {
+      catVideo = videos.find((v) => v.category === cat.name);
+    }
+
+    // Fallback if not found
+    if (!catVideo && videos.length > 0) {
+      catVideo = videos[0];
+    }
+
     return {
       ...cat,
       video: catVideo,
@@ -194,8 +210,8 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
           <p className="text-xs text-gray-400 mt-1 font-mono">EXPLORE OUR CHANNELS & RICH VIDEO CATEGORIES</p>
         </div>
 
-        {/* 4 video cards, responsive, fitting tightly on 1 row if possible on large screens */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 5 video cards, responsive, fitting tightly on 1 row if possible on large screens */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {categoryRepresentations.map((cat, index) => {
             const IconComponent = cat.icon;
             return (
