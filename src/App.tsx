@@ -23,8 +23,18 @@ import Home from "./components/Home";
 import CategoryPage from "./components/CategoryPage";
 import VideoManagement from "./components/VideoManagement";
 import UserManagement from "./components/UserManagement";
+import { LanguageProvider, useLanguage } from "./components/LanguageContext";
 
 export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
+  );
+}
+
+function AppContent() {
+  const { t } = useLanguage();
   // Navigation State
   const [activeTab, setActiveTab] = useState<string>("home");
 
@@ -149,7 +159,7 @@ export default function App() {
       return (
         <div className="flex-1 flex flex-col items-center justify-center py-20 text-gray-400 font-mono gap-4">
           <div className="w-10 h-10 border-4 border-porange border-t-transparent rounded-full animate-spin"></div>
-          <span>Đang tải cổng video PToonGo...</span>
+          <span>{t("Đang tải cổng video PToonGo...")}</span>
         </div>
       );
     }
@@ -172,8 +182,8 @@ export default function App() {
         return (
           <CategoryPage
             category="Phim hoạt hình"
-            title="Thế Giới Hoạt Hình Vui Nhộn"
-            slogan="Nơi lưu giữ tuổi thơ với những cuộc phiêu lưu diệu kỳ đầy màu sắc và tiếng cười"
+            title={t("Thế Giới Hoạt Hình Vui Nhộn")}
+            slogan={t("Nơi lưu giữ tuổi thơ với những cuộc phiêu lưu diệu kỳ đầy màu sắc và tiếng cười")}
             videos={videos}
             user={user}
             profile={profile}
@@ -184,8 +194,8 @@ export default function App() {
         return (
           <CategoryPage
             category="Du lịch trải nghiệm"
-            title="Kênh Du Lịch Trải Nghiệm"
-            slogan="Hành trình khám phá thiên nhiên kỳ thú, danh lam thắng cảnh và văn hóa con người bốn phương"
+            title={t("Kênh Du Lịch Trải Nghiệm")}
+            slogan={t("Hành trình khám phá thiên nhiên kỳ thú, danh lam thắng cảnh và văn hóa con người bốn phương")}
             videos={videos}
             user={user}
             profile={profile}
@@ -196,8 +206,8 @@ export default function App() {
         return (
           <CategoryPage
             category="Trao đổi công nghệ AI"
-            title="Diễn Đàn Trí Tuệ Nhân Tạo"
-            slogan="Trao đổi công nghệ AI tiên tiến, ứng dụng mô hình ngôn ngữ lớn và giải pháp kỹ xảo tự động"
+            title={t("Diễn Đàn Trí Tuệ Nhân Tạo")}
+            slogan={t("Trao đổi công nghệ AI tiên tiến, ứng dụng mô hình ngôn ngữ lớn và giải pháp kỹ xảo tự động")}
             videos={videos}
             showChat={true}
             user={user}
@@ -211,13 +221,13 @@ export default function App() {
           return (
             <div className="flex-1 flex flex-col items-center justify-center py-20 text-center gap-4">
               <span className="text-4xl">🔒</span>
-              <h3 className="text-xl font-bold text-white">Truy cập bị từ chối</h3>
-              <p className="text-sm text-gray-400 max-w-sm">Chỉ có tài khoản Quản trị viên (Admin) mới có quyền truy cập trang Quản lý Video này.</p>
+              <h3 className="text-xl font-bold text-white">{t("Truy cập bị từ chối")}</h3>
+              <p className="text-sm text-gray-400 max-w-sm">{t("Chỉ có tài khoản Quản trị viên (Admin) mới có quyền truy cập trang Quản lý Video này.")}</p>
               <button
                 onClick={() => setActiveTab("users")}
                 className="btn-porange px-6 py-2.5 rounded-full text-xs font-semibold"
               >
-                Đăng nhập với quyền Admin
+                {t("Đăng nhập với quyền Admin")}
               </button>
             </div>
           );
@@ -241,7 +251,7 @@ export default function App() {
         );
       default:
         return (
-          <div className="text-center py-20 text-gray-400">Trang không tồn tại.</div>
+          <div className="text-center py-20 text-gray-400">{t("Trang không tồn tại.")}</div>
         );
     }
   };

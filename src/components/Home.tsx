@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Video } from "../types";
 import { Play, Volume2, Film, Map, MessageSquare, BookOpen, Cloud } from "lucide-react";
+import { useLanguage } from "./LanguageContext";
 
 const getYoutubeEmbedUrl = (url: string): string | null => {
   if (!url) return null;
@@ -21,6 +22,7 @@ interface HomeProps {
 }
 
 export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps) {
+  const { t } = useLanguage();
   // Filter intro videos
   const introVideos = videos.filter((v) => v.category === "Giới thiệu");
   
@@ -81,7 +83,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
         <div className="border-b border-white/10 pb-2">
           <h2 className="font-display font-bold text-2xl text-white tracking-wide flex items-center gap-2">
             <span className="w-2 h-6 bg-pblue rounded-full"></span>
-            Giới Thiệu Hệ Thống
+            {t("Giới Thiệu Hệ Thống")}
           </h2>
           <p className="text-xs text-gray-400 mt-1 font-mono">WELCOME TO PTOONGO - THE PREMIER VIDEO HUB</p>
         </div>
@@ -122,7 +124,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                       {selectedIntroVideo.category}
                     </span>
                     <span className="text-xs text-gray-400 flex items-center gap-1 font-mono">
-                      <Volume2 className="w-3.5 h-3.5" /> Âm lượng mặc định: 50%
+                      <Volume2 className="w-3.5 h-3.5" /> {t("Âm lượng mặc định: 50%")}
                     </span>
                   </div>
                   <h3 className="font-display font-bold text-lg text-white">
@@ -135,14 +137,14 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
               </div>
             ) : (
               <div className="aspect-video w-full rounded-2xl bg-psub/40 border border-white/10 flex items-center justify-center text-gray-400 h-full">
-                Đang tải dữ liệu video giới thiệu...
+                {t("Đang tải dữ liệu video giới thiệu...")}
               </div>
             )}
           </div>
 
           {/* Cột phải: Danh sách video giới thiệu (dòng) */}
           <div className="lg:col-span-5 flex flex-col gap-3 lg:h-full lg:max-h-[100%]">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest px-1 font-mono flex-shrink-0">Danh sách video giới thiệu</h4>
+            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest px-1 font-mono flex-shrink-0">{t("Danh sách video giới thiệu")}</h4>
             <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar flex flex-col gap-3 min-h-[300px] lg:min-h-0">
               {introVideos.length > 0 ? (
                 introVideos.map((video) => {
@@ -171,7 +173,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                           </p>
                         </div>
                         <span className="text-[10px] text-gray-400 font-mono mt-2 flex items-center gap-1">
-                          Thời lượng: {video.duration} | Lượt xem: {video.views.toLocaleString()}
+                          {t("Thời lượng")}: {video.duration} | {t("Lượt xem")}: {video.views.toLocaleString()}
                         </span>
                       </div>
 
@@ -193,7 +195,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                   );
                 })
               ) : (
-                <div className="text-sm text-gray-400 text-center py-12">Không có video giới thiệu nào được tải lên.</div>
+                <div className="text-sm text-gray-400 text-center py-12">{t("Không có video giới thiệu nào được tải lên.")}</div>
               )}
             </div>
           </div>
@@ -205,7 +207,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
         <div className="border-b border-white/10 pb-2">
           <h2 className="font-display font-bold text-2xl text-white tracking-wide flex items-center gap-2">
             <span className="w-2 h-6 bg-porange rounded-full"></span>
-            Chủ Đề Tiêu Biểu
+            {t("Chủ Đề Tiêu Biểu")}
           </h2>
           <p className="text-xs text-gray-400 mt-1 font-mono">EXPLORE OUR CHANNELS & RICH VIDEO CATEGORIES</p>
         </div>
@@ -244,7 +246,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                     )
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-500 text-xs">
-                      Không có video
+                      {t("Không có video")}
                     </div>
                   )}
                 </div>
@@ -256,18 +258,18 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                     <div className="flex items-center gap-1.5 flex-shrink-0">
                       <IconComponent className={`w-3.5 h-3.5 ${cat.color}`} strokeWidth={cat.name === "Giới thiệu" ? 3 : 2} />
                       <span className={`font-display ${cat.name === "Giới thiệu" ? "font-extrabold" : "font-bold"} text-xs ${cat.color}`}>
-                        {cat.name}
+                        {t(cat.name)}
                       </span>
                     </div>
 
                     {/* Video title inside card */}
                     <h4 className="font-semibold text-xs text-gray-200 line-clamp-1 flex-shrink-0">
-                      {cat.video ? cat.video.title : "Chưa có video cho chủ đề này"}
+                      {cat.video ? cat.video.title : t("Chưa có video cho chủ đề này")}
                     </h4>
 
                     {/* Summary of film / topic */}
                     <div className="flex-1 min-h-0 overflow-y-auto pr-1 custom-scrollbar text-[11px] text-gray-400 text-justify leading-relaxed">
-                      {cat.video ? cat.video.summary : "Vui lòng truy cập trang quản lý để cập nhật thêm video mới cho chủ đề này."}
+                      {cat.video ? cat.video.summary : t("Vui lòng truy cập trang quản lý để cập nhật thêm video mới cho chủ đề này.")}
                     </div>
                   </div>
 
@@ -277,7 +279,7 @@ export default function Home({ videos, onSelectVideo, setActiveTab }: HomeProps)
                     onClick={() => setActiveTab(cat.tabId)}
                     className="w-full text-center text-xs font-semibold py-1 rounded-lg bg-white/5 hover:bg-porange hover:text-white transition-all text-gray-300 border border-white/10 hover:border-porange mt-1 flex-shrink-0"
                   >
-                    Truy cập Kênh
+                    {t("Truy cập Kênh")}
                   </button>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { Video, ChatMessage, UserProfile } from "../types";
 import { subscribeToMessages, addMessageToChat } from "../lib/dbService";
 import { User } from "firebase/auth";
 import { Play, Eye, Clock, MessageSquare, Send, Sparkles, User as UserIcon, Sun, Cloud, CloudRain, CloudLightning, Wind, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, RefreshCw, MapPin, Thermometer, Calendar, ZoomIn, ZoomOut } from "lucide-react";
+import { useLanguage } from "./LanguageContext";
 
 interface WeatherForecast {
   day: string;
@@ -402,6 +403,8 @@ export default function CategoryPage({
   profile,
   onNavigateToAuth,
 }: CategoryPageProps) {
+  const { t } = useLanguage();
+
   // Filter videos belonging to this category / sub-topic for showcase (Weather videos in travel tab)
   const showcaseVideos = category === "Du lịch trải nghiệm"
     ? videos.filter((v) => v.id.startsWith("weather-"))
@@ -492,12 +495,12 @@ export default function CategoryPage({
         <div className="absolute top-0 right-0 w-64 h-64 bg-porange/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-pblue/10 rounded-full blur-3xl -ml-16 -mb-16"></div>
         
-        <span className="text-xs font-mono tracking-widest text-porange uppercase font-bold">{category} Channel</span>
+        <span className="text-xs font-mono tracking-widest text-porange uppercase font-bold">{t(category)} Channel</span>
         <h1 className="font-display font-extrabold text-3xl md:text-4xl text-white tracking-tight">
-          {title}
+          {t(title)}
         </h1>
         <p className="text-sm text-gray-300 italic max-w-xl">
-          "{slogan}"
+          "{t(slogan)}"
         </p>
       </div>
 
@@ -505,7 +508,7 @@ export default function CategoryPage({
       <section id="category-showcase-session" className="flex flex-col gap-6">
         <div className="border-b border-white/10 pb-2">
           <h2 className="text-lg font-display font-semibold text-white tracking-wide">
-            Đang Trình Chiếu
+            {t("Đang Trình Chiếu")}
           </h2>
         </div>
 
@@ -518,7 +521,7 @@ export default function CategoryPage({
                 <div className="border-b border-white/10 pb-2">
                   <h3 className="text-base font-display font-semibold text-white tracking-wide flex items-center gap-2">
                     <Play className="w-4 h-4 text-porange fill-current" />
-                    Thời tiết Du ký
+                    {t("Thời tiết Du ký")}
                   </h3>
                 </div>
 
@@ -570,9 +573,9 @@ export default function CategoryPage({
                 <div className="flex flex-col gap-4 flex-grow">
                   <div className="flex items-center justify-between">
                     <span className="px-3 py-0.5 text-[10px] uppercase font-mono font-bold tracking-wider bg-porange/15 text-porange border border-porange/25 rounded-full">
-                      {selectedVideo.category}
+                      {t(selectedVideo.category)}
                     </span>
-                    <span className="text-xs text-gray-400 font-mono">Âm lượng mặc định: 50%</span>
+                    <span className="text-xs text-gray-400 font-mono">{t("Âm lượng mặc định: 50%")}</span>
                   </div>
 
                   <h3 className="font-display font-bold text-xl text-white">
@@ -586,11 +589,11 @@ export default function CategoryPage({
                   <div className="flex items-center gap-6 text-xs text-gray-400 font-mono border-t border-white/10 pt-4 mt-auto">
                     <span className="flex items-center gap-1">
                       <Clock className="w-4 h-4 text-porange" />
-                      Thời lượng: {selectedVideo.duration}
+                      {t("Thời lượng")}: {selectedVideo.duration}
                     </span>
                     <span className="flex items-center gap-1">
                       <Eye className="w-4 h-4 text-pblue" />
-                      Lượt xem: {selectedVideo.views.toLocaleString()}
+                      {t("Lượt xem")}: {selectedVideo.views.toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -601,7 +604,7 @@ export default function CategoryPage({
                 <div className="border-b border-white/10 pb-2">
                   <h3 className="text-base font-display font-semibold text-white tracking-wide flex items-center gap-2">
                     <Sun className="w-4 h-4 text-porange animate-spin" style={{ animationDuration: '15s' }} />
-                    Dự báo thời tiết
+                    {t("Dự báo thời tiết")}
                   </h3>
                 </div>
 
@@ -747,7 +750,7 @@ export default function CategoryPage({
                           <button 
                             onClick={() => setZoomScale(prev => Math.min(prev + 0.2, 2.5))}
                             className="p-1 hover:bg-white/10 active:bg-white/20 rounded text-gray-400 hover:text-white transition-colors focus:outline-none flex items-center justify-center"
-                            title="Phóng to"
+                            title={t("Mở rộng")}
                           >
                             <ZoomIn className="w-3.5 h-3.5 text-porange" />
                           </button>
@@ -755,7 +758,7 @@ export default function CategoryPage({
                           <button 
                             onClick={() => setZoomScale(prev => Math.max(prev - 0.2, 1.0))}
                             className="p-1 hover:bg-white/10 active:bg-white/20 rounded text-gray-400 hover:text-white transition-colors focus:outline-none flex items-center justify-center"
-                            title="Thu nhỏ"
+                            title={t("Thu nhỏ")}
                           >
                             <ZoomOut className="w-3.5 h-3.5 text-pblue" />
                           </button>
@@ -774,7 +777,7 @@ export default function CategoryPage({
                             <button 
                               onClick={() => setPanY(prev => prev - 40)}
                               className="w-5 h-5 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
-                              title="Lên trên"
+                              title="Up"
                             >
                               <ChevronUp className="w-3 h-3 text-porange" />
                             </button>
@@ -785,7 +788,7 @@ export default function CategoryPage({
                             <button 
                               onClick={() => setPanX(prev => prev - 40)}
                               className="w-5 h-5 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
-                              title="Sang trái"
+                              title="Left"
                             >
                               <ChevronLeft className="w-3 h-3 text-porange" />
                             </button>
@@ -796,8 +799,8 @@ export default function CategoryPage({
                                 setPanX(0);
                                 setPanY(0);
                               }}
-                              className="w-5 h-5 bg-white/10 hover:bg-white/15 active:bg-white/25 border border-white/15 rounded-full flex items-center justify-center text-gray-300 hover:text-white transition-colors focus:outline-none"
-                              title="Đặt lại bản đồ"
+                              className="w-5 h-5 bg-[#22c55e]/15 hover:bg-[#22c55e]/25 border border-[#22c55e]/20 rounded-full flex items-center justify-center text-gray-300 hover:text-white transition-colors focus:outline-none"
+                              title={t("Đặt lại")}
                             >
                               <RefreshCw className="w-2.5 h-2.5 text-emerald-400" />
                             </button>
@@ -805,7 +808,7 @@ export default function CategoryPage({
                             <button 
                               onClick={() => setPanX(prev => prev + 40)}
                               className="w-5 h-5 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
-                              title="Sang phải"
+                              title="Right"
                             >
                               <ChevronRight className="w-3 h-3 text-porange" />
                             </button>
@@ -816,7 +819,7 @@ export default function CategoryPage({
                             <button 
                               onClick={() => setPanY(prev => prev + 40)}
                               className="w-5 h-5 bg-white/5 hover:bg-white/10 active:bg-white/20 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none"
-                              title="Xuống dưới"
+                              title="Down"
                             >
                               <ChevronDown className="w-3 h-3 text-porange" />
                             </button>
@@ -833,7 +836,7 @@ export default function CategoryPage({
                     {/* Choose location menu */}
                     <div className="relative">
                       <label className="text-[10px] font-mono uppercase tracking-wider text-gray-400 block mb-1">
-                        Điểm dừng du ký:
+                        {t("Điểm dừng du ký:")}
                       </label>
                       <button
                         id="travel-location-dropdown-btn"
@@ -877,7 +880,7 @@ export default function CategoryPage({
                     {/* 7 Day forecast area */}
                     <div className="flex-1 flex flex-col gap-1.5 min-h-[350px] md:min-h-0">
                       <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400 block">
-                        Dự báo hành trình 7 ngày tới:
+                        {t("Dự báo hành trình 7 ngày tới:")}
                       </span>
                       <div className="flex-1 flex flex-col gap-1 md:gap-1.5 min-h-0 justify-between">
                         {selectedLocation.forecast.map((fc, i) => {
@@ -887,10 +890,10 @@ export default function CategoryPage({
                           const date = new Date();
                           date.setDate(date.getDate() + i);
                           const dayOfWeek = date.getDay();
-                          const dayNames = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+                          const dayNames = [t("Chủ Nhật"), t("Thứ Hai"), t("Thứ Ba"), t("Thứ Tư"), t("Thứ Năm"), t("Thứ Sáu"), t("Thứ Bảy")];
                           const dayName = dayNames[dayOfWeek];
                           const dateStr = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}`;
-                          const dayLabel = i === 0 ? `Hôm nay (${dateStr})` : `${dayName} (${dateStr})`;
+                          const dayLabel = i === 0 ? `${t("Hôm nay")} (${dateStr})` : `${dayName} (${dateStr})`;
 
                           return (
                             <div
@@ -912,7 +915,7 @@ export default function CategoryPage({
                                   </span>
                                 </div>
                                 <p className="text-[10px] text-gray-400 text-justify leading-tight line-clamp-2">
-                                  {fc.summary}
+                                  {t(fc.summary)}
                                 </p>
                               </div>
 
@@ -983,9 +986,9 @@ export default function CategoryPage({
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between">
                     <span className="px-3 py-0.5 text-[10px] uppercase font-mono font-bold tracking-wider bg-porange/15 text-porange border border-porange/25 rounded-full">
-                      {selectedVideo.category}
+                      {t(selectedVideo.category)}
                     </span>
-                    <span className="text-xs text-gray-400 font-mono">Âm lượng mặc định: 50%</span>
+                    <span className="text-xs text-gray-400 font-mono">{t("Âm lượng mặc định: 50%")}</span>
                   </div>
 
                   <h3 className="font-display font-bold text-xl text-white">
@@ -1000,11 +1003,11 @@ export default function CategoryPage({
                 <div className="flex items-center gap-6 text-xs text-gray-400 font-mono border-t border-white/10 pt-4 mt-4">
                   <span className="flex items-center gap-1">
                     <Clock className="w-4 h-4 text-porange" />
-                    Thời lượng: {selectedVideo.duration}
+                    {t("Thời lượng")}: {selectedVideo.duration}
                   </span>
                   <span className="flex items-center gap-1">
                     <Eye className="w-4 h-4 text-pblue" />
-                    Lượt xem: {selectedVideo.views.toLocaleString()}
+                    {t("Lượt xem")}: {selectedVideo.views.toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -1012,7 +1015,7 @@ export default function CategoryPage({
           )
         ) : (
           <div className="w-full rounded-2xl bg-psub/30 border border-white/10 py-16 text-center text-gray-400">
-            Chưa có video nào trong danh mục này. Vui lòng truy cập trang Quản lý Video để tải lên.
+            {t("Chưa có video nào trong danh mục này. Vui lòng truy cập trang Quản lý Video để tải lên.")}
           </div>
         )}
       </section>
@@ -1022,7 +1025,7 @@ export default function CategoryPage({
         <section id="category-cards-session" className="flex flex-col gap-6">
           <div className="border-b border-white/10 pb-2">
             <h2 className="text-lg font-display font-semibold text-white tracking-wide">
-              {category === "Du lịch trải nghiệm" ? "Những hành trình thú vị" : "Danh Sách Video Trong Kênh"} ({gridVideos.length})
+              {category === "Du lịch trải nghiệm" ? t("Những hành trình thú vị") : t("Danh Sách Video Trong Kênh")} ({gridVideos.length})
             </h2>
           </div>
 
@@ -1078,7 +1081,7 @@ export default function CategoryPage({
                     </div>
                     <div className="flex items-center justify-between mt-1 pt-1 border-t border-white/5 text-[10px] text-gray-500 font-mono flex-shrink-0">
                       <span>{video.duration}</span>
-                      <span>{video.views.toLocaleString()} lượt xem</span>
+                      <span>{video.views.toLocaleString()} {t("lượt xem")}</span>
                     </div>
                   </div>
                 </div>
@@ -1094,7 +1097,7 @@ export default function CategoryPage({
           <div className="border-b border-white/10 pb-2">
             <h2 className="font-display font-bold text-xl text-white tracking-wide flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-porange" />
-              Diễn Đàn Trực Tuyến - Trao đổi công nghệ AI
+              {t("Diễn Đàn Trực Tuyến - Trao đổi công nghệ AI")}
             </h2>
             <p className="text-xs text-gray-400 mt-1 font-mono">DISCUSS AI TRENDS AND VIDEO PRODUCTION TECHNOLOGY</p>
           </div>
@@ -1106,10 +1109,10 @@ export default function CategoryPage({
               <div className="bg-psub/60 px-6 py-4 border-b border-white/10 flex items-center justify-between">
                 <span className="text-sm font-semibold text-white flex items-center gap-2">
                   <span className="w-2.5 h-2.5 bg-pgreen rounded-full animate-ping"></span>
-                  Kênh thảo luận công khai
+                  {t("Kênh thảo luận công khai")}
                 </span>
                 <span className="text-xs text-gray-400 font-mono">
-                  {user ? `${chatMessages.length} tin nhắn` : "Vui lòng đăng nhập"}
+                  {user ? `${chatMessages.length} ${t("tin nhắn")}` : t("Vui lòng đăng nhập")}
                 </span>
               </div>
 
@@ -1152,22 +1155,22 @@ export default function CategoryPage({
                   ) : (
                     <div className="h-full flex flex-col items-center justify-center text-gray-400 gap-2">
                       <MessageSquare className="w-8 h-8 text-gray-500" />
-                      <p className="text-sm">Chưa có cuộc thảo luận nào. Hãy gửi tin nhắn đầu tiên!</p>
+                      <p className="text-sm">{t("Chưa có cuộc thảo luận nào. Hãy gửi tin nhắn đầu tiên!")}</p>
                     </div>
                   )
                 ) : (
                   <div className="h-full flex flex-col items-center justify-center text-gray-400 gap-4">
                     <UserIcon className="w-12 h-12 text-gray-600" />
                     <div className="text-center space-y-1">
-                      <p className="font-semibold text-white">Yêu cầu đăng nhập</p>
-                      <p className="text-xs text-gray-400 max-w-sm px-6">Bạn cần đăng nhập tài khoản để xem diễn đàn thảo luận và trao đổi ý kiến về công nghệ AI.</p>
+                      <p className="font-semibold text-white">{t("Yêu cầu đăng nhập")}</p>
+                      <p className="text-xs text-gray-400 max-w-sm px-6">{t("Bạn cần đăng nhập tài khoản để xem diễn đàn thảo luận và trao đổi ý kiến về công nghệ AI.")}</p>
                     </div>
                     <button
                       id="chat-login-btn"
                       onClick={onNavigateToAuth}
                       className="btn-porange px-6 py-2 rounded-full text-xs font-semibold"
                     >
-                      Đăng nhập / Đăng ký ngay
+                      {t("Đăng nhập / Đăng ký ngay")}
                     </button>
                   </div>
                 )}
@@ -1182,14 +1185,14 @@ export default function CategoryPage({
                     type="text"
                     value={newMessageText}
                     onChange={(e) => setNewMessageText(e.target.value)}
-                    placeholder="Nhập ý kiến trao đổi về AI của bạn..."
+                    placeholder={t("Nhập ý kiến trao đổi về AI của bạn...")}
                     className="flex-1 bg-[#252831] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-porange/50 transition-all"
                   />
                   <button
                     id="chat-send-btn"
                     type="submit"
                     className="p-2.5 rounded-xl btn-porange flex items-center justify-center"
-                    title="Gửi"
+                    title={t("Gửi")}
                   >
                     <Send className="w-4 h-4" />
                   </button>
@@ -1201,20 +1204,20 @@ export default function CategoryPage({
             <div className="lg:col-span-4 bg-psub/30 p-6 rounded-2xl border border-white/10 flex flex-col gap-4 self-stretch">
               <h3 className="font-display font-bold text-lg text-white flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-porange" />
-                Quy tắc thảo luận
+                {t("Quy tắc thảo luận")}
               </h3>
               <ul className="text-xs text-gray-300 space-y-3 leading-relaxed text-justify">
                 <li className="flex gap-2">
                   <span className="text-porange font-bold">1.</span>
-                  <span>Chỉ trao đổi các nội dung xoay quanh công nghệ Trí tuệ nhân tạo (AI), Machine Learning và ứng dụng AI trong dựng phim hoạt hình hoặc làm video trải nghiệm.</span>
+                  <span>{t("Chỉ trao đổi các nội dung xoay quanh công nghệ Trí tuệ nhân tạo (AI), Machine Learning và ứng dụng AI trong dựng phim hoạt hình hoặc làm video trải nghiệm.")}</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-porange font-bold">2.</span>
-                  <span>Tôn trọng ý kiến người khác, không spam link quảng cáo hoặc chia sẻ các phần mềm độc hại.</span>
+                  <span>{t("Tôn trọng ý kiến người khác, không spam link quảng cáo hoặc chia sẻ các phần mềm độc hại.")}</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-porange font-bold">3.</span>
-                  <span>Các bài đăng của Admin về hướng dẫn công nghệ AI sẽ được ghim trực tiếp trong mục video của kênh để các thành viên tiện theo dõi.</span>
+                  <span>{t("Các bài đăng của Admin về hướng dẫn công nghệ AI sẽ được ghim trực tiếp trong mục video của kênh để các thành viên tiện theo dõi.")}</span>
                 </li>
               </ul>
             </div>

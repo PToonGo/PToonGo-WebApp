@@ -1,12 +1,14 @@
 import { Youtube, Facebook, MessageCircle } from "lucide-react";
+import { useLanguage } from "./LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
   return (
     <footer className="sticky bottom-0 z-50 w-full bg-[#253040]/50 backdrop-blur-md py-[20px] border-t border-white/10 flex flex-col sm:flex-row items-center justify-between px-6 md:px-12 gap-4 shadow-lg text-sm shrink-0">
       {/* Left section: Copyright */}
       <div id="footer-left">
         <span className="font-medium italic select-none text-gray-400">
-          Copyright by <span className="font-bold tracking-wide animate-gradient-text">NGUYEN QUANG PHUONG</span>
+          {t("Copyright by")} <span className="font-bold tracking-wide animate-gradient-text">NGUYEN QUANG PHUONG</span>
         </span>
       </div>
 

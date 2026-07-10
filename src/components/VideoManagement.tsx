@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Video, VideoCategory, UserProfile } from "../types";
+import { useLanguage } from "./LanguageContext";
 import { 
   addVideoToFirestore, 
   updateVideoInFirestore, 
@@ -54,6 +55,7 @@ interface VideoManagementProps {
 }
 
 export default function VideoManagement({ videos, refreshVideos, profile }: VideoManagementProps) {
+  const { t } = useLanguage();
   // Form states
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
@@ -134,7 +136,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
       });
 
       if (!res.ok) {
-        throw new Error("Tải tệp lên thất bại. Vui lòng thử lại.");
+        throw new Error(t("Tải tệp lên thất bại. Vui lòng thử lại."));
       }
 
       const data = await res.json();
@@ -144,7 +146,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
         setThumbnailUrl(data.url);
       }
     } catch (err: any) {
-      setUploadError(err.message || "Có lỗi xảy ra khi tải tệp.");
+      setUploadError(err.message || t("Có lỗi xảy ra khi tải tệp."));
     } finally {
       setUploadingVideo(false);
       setUploadingThumb(false);
@@ -194,7 +196,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
 
       const timeoutId = setTimeout(() => {
         cleanup();
-        reject(new Error("Quá thời gian trích xuất ảnh từ video (Timeout)"));
+        reject(new Error(t("Quá thời gian trích xuất ảnh từ video (Timeout)")));
       }, 10000);
 
       const cleanup = () => {
@@ -216,7 +218,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
           canvas.height = video.videoHeight || 360;
           const ctx = canvas.getContext("2d");
           if (!ctx) {
-            reject(new Error("Không thể khởi tạo canvas context"));
+            reject(new Error(t("Không thể khởi tạo canvas context")));
             return;
           }
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -225,7 +227,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
               const file = new File([blob], "thumbnail.jpg", { type: "image/jpeg" });
               resolve(file);
             } else {
-              reject(new Error("Không thể tạo Blob từ canvas"));
+              reject(new Error(t("Không thể tạo Blob từ canvas")));
             }
           }, "image/jpeg", 0.85);
         } catch (err) {
@@ -235,7 +237,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
 
       video.onerror = () => {
         cleanup();
-        reject(new Error("Lỗi khi tải tệp video để trích xuất ảnh thu nhỏ. Vui lòng kiểm tra lại định dạng video."));
+        reject(new Error(t("Lỗi khi tải tệp video để trích xuất ảnh thu nhỏ. Vui lòng kiểm tra lại định dạng video.")));
       };
     });
   };
@@ -255,7 +257,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
     }
 
     if (!currentVideoUrl || currentVideoUrl.trim() === "") {
-      throw new Error("Vui lòng tải lên tệp video hoặc cung cấp đường dẫn video trước.");
+      throw new Error(t("Vui lòng tải lên tệp video hoặc cung cấp đường dẫn video trước."));
     }
 
     // Tự động kiểm tra và trích xuất ảnh thu nhỏ từ YouTube nếu là video YouTube
@@ -266,7 +268,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
     }
 
     setUploadingThumb(true);
-    setUploadError("Đang tự động trích xuất ảnh thu nhỏ từ Frame đầu của video...");
+    setUploadError(t("Đang tự động trích xuất ảnh thu nhỏ từ Frame đầu của video..."));
 
     try {
       const file = await extractVideoFrame(currentVideoUrl);
@@ -279,7 +281,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
       });
 
       if (!res.ok) {
-        throw new Error("Không thể tải ảnh trích xuất lên server.");
+        throw new Error(t("Không thể tải ảnh trích xuất lên server."));
       }
 
       const data = await res.json();
@@ -287,7 +289,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
       setUploadError("");
       return data.url;
     } catch (err: any) {
-      throw new Error("Không thể trích xuất ảnh thu nhỏ tự động: " + (err.message || err));
+      throw new Error(t("Không thể trích xuất ảnh thu nhỏ tự động: ") + (err.message || err));
     } finally {
       setUploadingThumb(false);
     }
@@ -296,7 +298,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
   // Add video
   const handleAddVideo = async () => {
     if (!profile || profile.role !== "admin") {
-      setUploadError("Bạn không có quyền thêm video! Chỉ dành cho Quản trị viên.");
+      setUploadError(t("Bạn không có quyền thêm video! Chỉ dành cho Quản trị viên."));
       return;
     }
 
@@ -313,7 +315,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
     }
 
     if (!title || !summary || !videoUrl || !finalThumbnailUrl) {
-      setUploadError("Vui lòng điền đầy đủ các thông tin bắt buộc (*)");
+      setUploadError(t("Vui lòng điền đầy đủ các thông tin bắt buộc (*)"));
       return;
     }
 
@@ -334,16 +336,16 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
       await addVideoToFirestore(newVideo);
       await refreshVideos();
       handleResetForm();
-      alert("Thêm video mới thành công!");
+      alert(t("Thêm video mới thành công!"));
     } catch (err: any) {
-      setUploadError(err.message || "Lỗi khi lưu video vào Firestore.");
+      setUploadError(err.message || t("Lỗi khi lưu video vào Firestore."));
     }
   };
 
   // Update video
   const handleUpdateVideo = async () => {
     if (!profile || profile.role !== "admin") {
-      setUploadError("Bạn không có quyền cập nhật video! Chỉ dành cho Quản trị viên.");
+      setUploadError(t("Bạn không có quyền cập nhật video! Chỉ dành cho Quản trị viên."));
       return;
     }
 
@@ -361,7 +363,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
     }
 
     if (!title || !summary || !videoUrl || !finalThumbnailUrl) {
-      setUploadError("Vui lòng điền đầy đủ các thông tin bắt buộc (*)");
+      setUploadError(t("Vui lòng điền đầy đủ các thông tin bắt buộc (*)"));
       return;
     }
 
@@ -382,9 +384,9 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
       await updateVideoInFirestore(updatedVideo);
       await refreshVideos();
       handleResetForm();
-      alert("Cập nhật thông tin video thành công!");
+      alert(t("Cập nhật thông tin video thành công!"));
     } catch (err: any) {
-      setUploadError(err.message || "Lỗi khi cập nhật video.");
+      setUploadError(err.message || t("Lỗi khi cập nhật video."));
     }
   };
 
@@ -392,7 +394,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
   const handleDeleteVideo = async (vidToDelete?: string) => {
     // Admin check
     if (!profile || profile.role !== "admin") {
-      alert("Bạn không có quyền thực hiện chức năng xóa video! Chỉ có Quản trị viên (Admin) mới có quyền.");
+      alert(t("Bạn không có quyền thực hiện chức năng xóa video! Chỉ có Quản trị viên (Admin) mới có quyền."));
       return;
     }
 
@@ -402,7 +404,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
     const targetVideo = videos.find((v) => v.id === targetId);
     const videoTitle = targetVideo ? targetVideo.title : targetId;
 
-    if (!window.confirm(`Bạn có chắc chắn muốn xóa video "${videoTitle}"? Hành động này sẽ xóa vĩnh viễn video khỏi cơ sở dữ liệu.`)) {
+    if (!window.confirm(`${t("Bạn có chắc chắn muốn xóa video")} "${videoTitle}"? ${t("Hành động này sẽ xóa vĩnh viễn video khỏi cơ sở dữ liệu.")}`)) {
       return;
     }
 
@@ -415,9 +417,9 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
         handleResetForm();
       }
       
-      alert("Xóa video thành công!");
+      alert(t("Xóa video thành công!"));
     } catch (err: any) {
-      setUploadError(err.message || "Lỗi khi xóa video.");
+      setUploadError(err.message || t("Lỗi khi xóa video."));
     }
   };
 
@@ -445,7 +447,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
         <div>
           <h2 className="font-display font-bold text-2xl text-white tracking-wide flex items-center gap-2">
             <span className="w-2 h-6 bg-pblue rounded-full"></span>
-            Hệ Thống Quản Lý Video
+            {t("Hệ Thống Quản Lý Video")}
           </h2>
           <p className="text-xs text-gray-400 mt-1 font-mono">ADMIN PANEL FOR VIDEO UPLOAD AND MANAGEMENT</p>
         </div>
@@ -454,7 +456,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
           onClick={refreshVideos}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-psub/50 hover:bg-psub text-xs text-gray-300 hover:text-white border border-white/10 transition-all font-mono"
         >
-          <RefreshCw className="w-3.5 h-3.5" /> Làm mới dữ liệu
+          <RefreshCw className="w-3.5 h-3.5" /> {t("Làm mới dữ liệu")}
         </button>
       </div>
 
@@ -465,7 +467,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
           <div className="flex items-center justify-between border-b border-white/10 pb-3">
             <h3 className="font-semibold text-white flex items-center gap-2 text-sm">
               <Film className="w-4 h-4 text-porange" />
-              {selectedVideoId ? `Chỉnh sửa Video: ${selectedVideoId}` : "Thêm Video Mới"}
+              {selectedVideoId ? `${t("Chỉnh sửa Video")}: ${selectedVideoId}` : t("Thêm Video Mới")}
             </h3>
             {selectedVideoId && (
               <button
@@ -473,14 +475,14 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                 onClick={handleResetForm}
                 className="text-xs text-porange hover:underline flex items-center gap-1"
               >
-                <Plus className="w-3 h-3" /> Tạo video mới
+                <Plus className="w-3 h-3" /> {t("Tạo video mới")}
               </button>
             )}
           </div>
 
           {/* DRAG & DROP / SELECT LOCAL VIDEO FILE */}
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-gray-300">Tải lên video (Kéo thả hoặc Chọn tệp) *</label>
+            <label className="text-xs font-semibold text-gray-300">{t("Tải lên video (Kéo thả hoặc Chọn tệp) *")}</label>
             <div
               id="video-dropzone"
               onDragOver={handleDragOver}
@@ -512,21 +514,21 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                     <video src={videoUrl} controls className="w-full h-full object-contain animate-fade-in" />
                   )}
                   <div className="absolute top-2 right-2 bg-black/60 px-2 py-1 rounded text-[10px] font-mono text-gray-300 pointer-events-none">
-                    Video Sẵn sàng
+                    {t("Video Sẵn sàng")}
                   </div>
                 </div>
               ) : uploadingVideo ? (
                 <div className="flex flex-col items-center gap-2">
                   <RefreshCw className="w-8 h-8 text-porange animate-spin" />
-                  <span className="text-xs text-gray-400 font-mono">Đang tải video lên server...</span>
+                  <span className="text-xs text-gray-400 font-mono">{t("Đang tải video lên server...")}</span>
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-2 p-6 text-center">
                   <div className="p-3 bg-white/5 rounded-full group-hover:bg-porange/10 transition-colors">
                     <Upload className="w-6 h-6 text-gray-400 group-hover:text-porange" />
                   </div>
-                  <span className="text-xs text-gray-300 font-medium">Nhấn để chọn video từ máy tính hoặc kéo thả vào đây</span>
-                  <span className="text-[10px] text-gray-500 font-mono">Định dạng hỗ trợ: MP4, WebM, OGG</span>
+                  <span className="text-xs text-gray-300 font-medium">{t("Nhấn để chọn video từ máy tính hoặc kéo thả vào đây")}</span>
+                  <span className="text-[10px] text-gray-500 font-mono">{t("Định dạng hỗ trợ: MP4, WebM, OGG")}</span>
                 </div>
               )}
             </div>
@@ -536,7 +538,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* ID */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-gray-400">Mã định danh (ID - Tự động)</label>
+              <label className="text-xs font-medium text-gray-400">{t("Mã định danh (ID - Tự động)")}</label>
               <input
                 id="input-video-id"
                 type="text"
@@ -548,56 +550,56 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
 
             {/* Category */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-gray-300">Chủ đề (Category) *</label>
+              <label className="text-xs font-medium text-gray-300">{t("Chủ đề (Category) *")}</label>
               <select
                 id="select-video-category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value as VideoCategory)}
                 className="bg-[#252831] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-porange/50"
               >
-                <option value="Giới thiệu">Giới thiệu</option>
-                <option value="Phim hoạt hình">Phim hoạt hình</option>
-                <option value="Du lịch trải nghiệm">Du lịch trải nghiệm</option>
-                <option value="Trao đổi công nghệ AI">Trao đổi công nghệ AI</option>
-                <option value="Dự báo thời tiết">Dự báo thời tiết</option>
+                <option value="Giới thiệu">{t("Giới thiệu")}</option>
+                <option value="Phim hoạt hình">{t("Phim hoạt hình")}</option>
+                <option value="Du lịch trải nghiệm">{t("Du lịch trải nghiệm")}</option>
+                <option value="Trao đổi công nghệ AI">{t("Trao đổi công nghệ AI")}</option>
+                <option value="Dự báo thời tiết">{t("Dự báo thời tiết")}</option>
               </select>
             </div>
 
             {/* Title */}
             <div className="md:col-span-2 flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-gray-300">Tiêu đề Video *</label>
+              <label className="text-xs font-medium text-gray-300">{t("Tiêu đề Video *")}</label>
               <input
                 id="input-video-title"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Ví dụ: Cuộc phiêu lưu kì thú"
+                placeholder={t("Ví dụ: Cuộc phiêu lưu kì thú")}
                 className="bg-[#252831] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-porange/50"
               />
             </div>
 
             {/* Summary */}
             <div className="md:col-span-2 flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-gray-300">Tóm tắt nội dung phim/video (Justified) *</label>
+              <label className="text-xs font-medium text-gray-300">{t("Tóm tắt nội dung phim/video (Justified) *")}</label>
               <textarea
                 id="textarea-video-summary"
                 rows={4}
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
-                placeholder="Nhập nội dung mô tả chi tiết của phim..."
+                placeholder={t("Nhập nội dung mô tả chi tiết của phim...")}
                 className="bg-[#252831] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-porange/50 text-justify"
               />
             </div>
 
             {/* Video Url string field */}
             <div className="md:col-span-2 flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-gray-300">Đường dẫn tệp Video (videoUrl) *</label>
+              <label className="text-xs font-medium text-gray-300">{t("Đường dẫn tệp Video (videoUrl) *")}</label>
               <input
                 id="input-video-url"
                 type="text"
                 value={videoUrl}
                 onChange={(e) => handleVideoUrlChange(e.target.value)}
-                placeholder="Chọn tệp bên trên hoặc dán URL trực tiếp (Ví dụ URL Youtube, MP4,...)"
+                placeholder={t("Chọn tệp bên trên hoặc dán URL trực tiếp (Ví dụ URL Youtube, MP4,...)")}
                 className="bg-[#252831] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-porange/50 font-mono text-xs"
               />
             </div>
@@ -605,20 +607,20 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
             {/* Thumbnail URL Input + Upload Small preview area */}
             <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
               <div className="md:col-span-8 flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-gray-300">Đường dẫn hình ảnh Thumbnail *</label>
+                <label className="text-xs font-medium text-gray-300">{t("Đường dẫn hình ảnh Thumbnail *")}</label>
                 <input
                   id="input-thumbnail-url"
                   type="text"
                   value={thumbnailUrl}
                   onChange={(e) => setThumbnailUrl(e.target.value)}
-                  placeholder="Dán URL hình ảnh hoặc tải ảnh lên bên phải"
+                  placeholder={t("Dán URL hình ảnh hoặc tải ảnh lên bên phải")}
                   className="bg-[#252831] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-porange/50 font-mono text-xs"
                 />
               </div>
 
               {/* Upload image square */}
               <div className="md:col-span-4 flex flex-col gap-1.5">
-                <span className="text-[10px] font-semibold text-gray-400">Hình thu nhỏ (16:9)</span>
+                <span className="text-[10px] font-semibold text-gray-400">{t("Hình thu nhỏ (16:9)")}</span>
                 <div
                   id="thumb-dropzone"
                   onDragOver={handleDragOver}
@@ -641,7 +643,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                   ) : (
                     <div className="flex flex-col items-center gap-1">
                       <ImageIcon className="w-5 h-5 text-gray-400 group-hover:text-porange transition-colors" />
-                      <span className="text-[9px] text-gray-500">Tải ảnh lên</span>
+                      <span className="text-[9px] text-gray-500">{t("Tải ảnh lên")}</span>
                     </div>
                   )}
                 </div>
@@ -650,20 +652,20 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
 
             {/* Duration */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-gray-300">Thời lượng (duration) *</label>
+              <label className="text-xs font-medium text-gray-300">{t("Thời lượng (duration) *")}</label>
               <input
                 id="input-video-duration"
                 type="text"
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
-                placeholder="Ví dụ: 03:15, 12:40"
+                placeholder={t("Ví dụ: 03:15, 12:40")}
                 className="bg-[#252831] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-porange/50 font-mono"
               />
             </div>
 
             {/* Views */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-gray-300">Lượt xem ảo (views)</label>
+              <label className="text-xs font-medium text-gray-300">{t("Lượt xem ảo (views)")}</label>
               <input
                 id="input-video-views"
                 type="number"
@@ -688,7 +690,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
               onClick={handleAddVideo}
               className="btn-porange px-5 py-2 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all transform hover:scale-101"
             >
-              <Plus className="w-4 h-4" /> Thêm mới
+              <Plus className="w-4 h-4" /> {t("Thêm mới")}
             </button>
 
             {selectedVideoId && (
@@ -697,7 +699,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                 onClick={handleUpdateVideo}
                 className="btn-pblue px-5 py-2 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all transform hover:scale-101"
               >
-                <RefreshCw className="w-4 h-4" /> Cập nhật
+                <RefreshCw className="w-4 h-4" /> {t("Cập nhật")}
               </button>
             )}
 
@@ -707,7 +709,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                 onClick={() => handleDeleteVideo()}
                 className="px-5 py-2 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all transform hover:scale-101 border bg-red-500/20 hover:bg-red-500 text-red-300 hover:text-white border-red-500/30 cursor-pointer"
               >
-                <Trash2 className="w-4 h-4" /> Xóa
+                <Trash2 className="w-4 h-4" /> {t("Xóa")}
               </button>
             )}
           </div>
@@ -718,7 +720,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
           <div className="bg-psub/40 p-6 rounded-2xl border border-white/10 shadow-lg flex flex-col gap-4 lg:h-full lg:max-h-[100%] min-h-[400px] lg:min-h-0">
             <h3 className="font-semibold text-white flex items-center gap-2 text-sm border-b border-white/10 pb-3 flex-shrink-0">
               <ListOrdered className="w-4 h-4 text-pblue" />
-              Danh sách video phân theo chủ đề
+              {t("Danh sách video phân theo chủ đề")}
             </h3>
 
             <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar flex flex-col gap-6 min-h-0">
@@ -746,7 +748,7 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                     <div className="flex items-center gap-2 bg-[#2a2d36] px-3 py-1.5 rounded-md border border-white/5 self-start select-none">
                       <IconComponent className={`w-3.5 h-3.5 ${categoryColor}`} strokeWidth={isIntro ? 3 : 2} />
                       <span className={`text-xs font-mono uppercase tracking-wider ${isIntro ? "font-extrabold text-pblue text-shadow-sm" : "font-bold " + categoryColor}`}>
-                        {group.category}
+                        {t(group.category)}
                       </span>
                     </div>
 
@@ -801,17 +803,17 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
                                   id={`trash-btn-${video.id}`}
                                   onClick={() => handleDeleteVideo(video.id)}
                                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white transition-all text-xs font-semibold border border-red-500/20 hover:border-red-500 shadow-sm active:scale-95"
-                                  title="Xóa video này"
+                                  title={t("Xóa video này")}
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
-                                  <span className="hidden md:inline">Xóa</span>
+                                  <span className="hidden md:inline">{t("Xóa")}</span>
                                 </button>
                               </div>
                             </div>
                           );
                         })
                       ) : (
-                        <div className="text-[11px] text-gray-500 italic py-2 pl-2">Không có video trong danh mục này.</div>
+                        <div className="text-[11px] text-gray-500 italic py-2 pl-2">{t("Không có video trong danh mục này.")}</div>
                       )}
                     </div>
                   </div>
