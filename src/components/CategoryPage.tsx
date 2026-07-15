@@ -608,9 +608,9 @@ export default function CategoryPage({
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-[11fr_13fr] gap-5 flex-grow">
+                <div className="flex flex-col md:flex-row gap-5 flex-grow w-full items-stretch min-h-0">
                   {/* Left Panel: Vietnam Tech AI Map */}
-                  <div className="flex justify-center h-full">
+                  <div className="w-full md:w-[45%] flex-shrink-0 flex justify-center h-[450px] md:h-auto min-h-[400px]">
                     <div className="relative bg-gradient-to-b from-black/80 to-black/95 border border-white/10 rounded-xl aspect-[8/12] h-full w-auto overflow-hidden shadow-2xl">
                       {/* Zoomable Inner Wrapper */}
                       <div 
@@ -832,7 +832,7 @@ export default function CategoryPage({
                 </div>
 
                   {/* Right Panel: Choice Dropdown & 7 Days Forecast */}
-                  <div className="flex flex-col gap-4 min-h-0">
+                  <div className="w-full md:w-[55%] flex flex-col gap-4 min-h-0 flex-grow">
                     {/* Choose location menu */}
                     <div className="relative">
                       <label className="text-[10px] font-mono uppercase tracking-wider text-gray-400 block mb-1">
