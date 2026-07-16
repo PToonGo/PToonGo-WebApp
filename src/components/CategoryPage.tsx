@@ -25,6 +25,44 @@ interface TravelLocation {
 
 const TRAVEL_LOCATIONS: TravelLocation[] = [
   {
+    id: "dienbien",
+    name: "Điện Biên",
+    fullName: "Điện Biên Phủ",
+    tempMin: 18,
+    tempMax: 26,
+    currentStatus: "sunny",
+    top: "14.07%",
+    left: "9.65%",
+    forecast: [
+      { day: "Thứ Hai", status: "sunny", summary: "Nắng vàng rực rỡ chiếu sáng thung lũng Mường Thanh, trời trong xanh lộng gió." },
+      { day: "Thứ Ba", status: "sunny", summary: "Thời tiết khô ráo ấm áp, rất thuận lợi để viếng thăm Đồi A1 và hầm De Castries." },
+      { day: "Thứ Tư", status: "cloudy", summary: "Có mây rải rác che mát dải đèo Pha Đin hùng vĩ, không khí trong lành dễ chịu." },
+      { day: "Thứ Năm", status: "sunny", summary: "Nắng đẹp chan hòa cả ngày, khí hậu vùng cao mát mẻ thích hợp khám phá văn hóa." },
+      { day: "Thứ Sáu", status: "rainy", summary: "Khả năng có mưa rào nhẹ cục bộ vào chiều tối, ban ngày mát mẻ sảng khoái." },
+      { day: "Thứ Bảy", status: "sunny", summary: "Trời quang mây tạnh, tầm nhìn xa cực tốt, khí hậu trong lành tuyệt vời." },
+      { day: "Chủ Nhật", status: "sunny", summary: "Ngày cuối tuần đầy nắng ấm, lý tưởng cho các hành trình trekking dã ngoại vùng biên." }
+    ]
+  },
+  {
+    id: "langson",
+    name: "Lạng Sơn",
+    fullName: "Lạng Sơn",
+    tempMin: 17,
+    tempMax: 25,
+    currentStatus: "cloudy",
+    top: "9.78%",
+    left: "42.6%",
+    forecast: [
+      { day: "Thứ Hai", status: "cloudy", summary: "Mây che phủ đỉnh Mẫu Sơn, không khí se lạnh, sương mù nhẹ lãng đãng quanh núi rừng." },
+      { day: "Thứ Ba", status: "sunny", summary: "Hửng nắng nhẹ vùng biên cương, thuận lợi tham quan động Tam Thanh và Ải Chi Lăng kỳ vĩ." },
+      { day: "Thứ Tư", status: "cloudy", summary: "Bầu trời nhiều mây che bớt nắng gắt, thích hợp mua sắm tại chợ Kỳ Lừa sầm uất." },
+      { day: "Thứ Năm", status: "sunny", summary: "Thời tiết ấm áp tràn đầy ánh nắng rực rỡ, không khí mát mẻ trong lành cả ngày." },
+      { day: "Thứ Sáu", status: "windy", summary: "Gió Đông Bắc thổi nhẹ mang không khí mát rượi, bầu trời khô ráo thông thoáng." },
+      { day: "Thứ Bảy", status: "rainy", summary: "Khả năng có mưa phùn rải rác vào sáng sớm, trưa chiều tạnh ráo dễ chịu." },
+      { day: "Chủ Nhật", status: "sunny", summary: "Nắng trải đều vùng cao biên giới, ngày nghỉ lý tưởng cho các chuyến hành trình tâm linh." }
+    ]
+  },
+  {
     id: "sapa",
     name: "Sapa",
     fullName: "Sapa (Lào Cai)",
@@ -426,7 +464,7 @@ export default function CategoryPage({
   const [panX, setPanX] = useState<number>(0);
   const [panY, setPanY] = useState<number>(0);
 
-  const selectedLocation = TRAVEL_LOCATIONS.find((loc) => loc.id === selectedLocationId) || TRAVEL_LOCATIONS[2];
+  const selectedLocation = TRAVEL_LOCATIONS.find((loc) => loc.id === selectedLocationId) || TRAVEL_LOCATIONS.find((loc) => loc.id === "hanoi") || TRAVEL_LOCATIONS[0];
 
   // For real-time chat in AI tab
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -664,7 +702,7 @@ export default function CategoryPage({
 
                           {/* Wide Glow Aura Path */}
                           <path 
-                            d="M 29.64 4.4 L 18.4 8.24 L 32.96 17.2 L 47.6 13.95 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
+                            d="M 9.65 14.07 L 18.4 8.24 L 29.64 4.4 L 42.6 9.78 L 47.6 13.95 L 32.96 17.2 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
                             fill="none" 
                             stroke="url(#cyber-grad-map)" 
                             strokeWidth="2.5" 
@@ -674,7 +712,7 @@ export default function CategoryPage({
 
                           {/* Main Dynamic Neon Travel Line (North to South) */}
                           <path 
-                            d="M 29.64 4.4 L 18.4 8.24 L 32.96 17.2 L 47.6 13.95 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
+                            d="M 9.65 14.07 L 18.4 8.24 L 29.64 4.4 L 42.6 9.78 L 47.6 13.95 L 32.96 17.2 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
                             fill="none" 
                             stroke="url(#cyber-grad-map)" 
                             strokeWidth="1.5" 
@@ -684,7 +722,7 @@ export default function CategoryPage({
 
                           {/* Fine Bright Core Line */}
                           <path 
-                            d="M 29.64 4.4 L 18.4 8.24 L 32.96 17.2 L 47.6 13.95 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
+                            d="M 9.65 14.07 L 18.4 8.24 L 29.64 4.4 L 42.6 9.78 L 47.6 13.95 L 32.96 17.2 L 33.9 25.3 L 32.6 31.47 L 50.6 44.8 L 54.86 48.51 L 63.01 62.67 L 63.3 70.4 L 57.46 75.59 L 48.8 82.8 L 34.9 86.3 L 26.5 91.54 L 15.7 83.07" 
                             fill="none" 
                             stroke="#ffffff" 
                             strokeWidth="0.5" 
@@ -721,10 +759,10 @@ export default function CategoryPage({
                               </div>
 
                               {/* Tech badge card floating above the node */}
-                              <div className={`absolute -top-7 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded-md border text-[9px] font-medium transition-all duration-300 shadow-md flex items-center gap-1 whitespace-nowrap
+                              <div className={`absolute -top-7 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded-md border text-[9px] font-medium transition-all duration-300 shadow-md flex items-center gap-1 whitespace-nowrap backdrop-blur-md
                                 ${isSelected 
-                                  ? "bg-black border-porange text-porange font-bold scale-105 z-20 shadow-[0_0_12px_rgba(249,115,22,0.4)]" 
-                                  : "bg-black/85 border-white/10 text-gray-300 group-hover:text-white group-hover:border-white/25 z-10"}`}
+                                  ? "bg-black/50 border-porange text-porange font-bold scale-105 z-20 shadow-[0_0_12px_rgba(249,115,22,0.4)]" 
+                                  : "bg-black/50 border-white/10 text-gray-300 group-hover:text-white group-hover:border-white/25 z-10"}`}
                               >
                                 <span className="max-w-[70px] truncate">{loc.name}</span>
                                 <span className="flex items-center gap-0.5">
@@ -843,7 +881,7 @@ export default function CategoryPage({
                       <button
                         id="travel-location-dropdown-btn"
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="w-full flex items-center justify-between bg-black/50 border border-white/10 hover:border-porange/40 transition-colors px-4 py-2.5 rounded-xl text-xs font-semibold text-white text-left focus:outline-none"
+                        className="w-full flex items-center justify-between bg-black/50 backdrop-blur-md border border-white/10 hover:border-porange/40 transition-colors px-4 py-2.5 rounded-xl text-xs font-semibold text-white text-left focus:outline-none"
                       >
                         <span className="flex items-center gap-2">
                           <MapPin className="w-4 h-4 text-porange animate-bounce" />
@@ -854,7 +892,7 @@ export default function CategoryPage({
 
                       {/* Floating custom dropdown menu list */}
                       {isDropdownOpen && (
-                        <div className="absolute left-0 right-0 mt-1.5 bg-black/95 border border-white/10 rounded-xl shadow-2xl z-30 max-h-60 overflow-y-auto custom-scrollbar animate-fade-in divide-y divide-white/5">
+                        <div className="absolute left-0 right-0 mt-1.5 bg-black/50 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl z-30 max-h-60 overflow-y-auto custom-scrollbar animate-fade-in divide-y divide-white/5">
                           {TRAVEL_LOCATIONS.map((loc) => (
                             <button
                               key={loc.id}
@@ -900,7 +938,7 @@ export default function CategoryPage({
                           return (
                             <div
                               key={i}
-                              className="flex-1 flex items-center justify-between bg-black/30 border border-white/5 hover:border-white/10 px-3 py-1 rounded-xl gap-3 transition-colors duration-200 min-h-0"
+                              className="flex-1 flex items-center justify-between bg-black/50 backdrop-blur-md border border-white/5 hover:border-white/10 px-3 py-1 rounded-xl gap-3 transition-colors duration-200 min-h-0"
                             >
                               {/* Left Info: Bold location + details */}
                               <div className="flex-grow flex flex-col gap-0.5 min-h-0 justify-center">
