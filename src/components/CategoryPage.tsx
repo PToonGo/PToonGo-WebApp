@@ -515,9 +515,9 @@ export default function CategoryPage({
         {selectedVideo ? (
           category === "Du lịch trải nghiệm" ? (
             /* 2-column layout for Travel Tab */
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-stretch xl:h-[680px]">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-stretch h-auto">
               {/* Left Column: "Thời tiết Du ký" */}
-              <div className="xl:col-span-5 flex flex-col gap-6 bg-psub/40 p-5 rounded-2xl border border-white/10 shadow-lg self-stretch h-full">
+              <div className="xl:col-span-5 flex flex-col gap-6 bg-psub/40 p-5 rounded-2xl border border-white/10 shadow-lg self-stretch h-auto">
                 <div className="border-b border-white/10 pb-2">
                   <h3 className="text-base font-display font-semibold text-white tracking-wide flex items-center gap-2">
                     <Play className="w-4 h-4 text-porange fill-current" />
@@ -1024,7 +1024,7 @@ export default function CategoryPage({
 
       {/* 3. Session Chủ đề chính: Các video card còn lại */}
       {gridVideos.length > 0 && (
-        <section id="category-cards-session" className="flex flex-col gap-6">
+        <section id="category-cards-session" className="relative flex flex-col gap-6">
           <div className="border-b border-white/10 pb-2">
             <h2 className="text-lg font-display font-semibold text-white tracking-wide">
               {category === "Du lịch trải nghiệm" ? t("Những hành trình thú vị") : t("Danh Sách Video Trong Kênh")} ({gridVideos.length})
