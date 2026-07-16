@@ -618,9 +618,11 @@ export default function CategoryPage({
                         style={{ transform: `translate(${panX}px, ${panY}px) scale(${zoomScale})`, transformOrigin: "center center" }}
                       >
                         {/* Background 3D Vietnam Map Image */}
-                        <div 
-                          className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 pointer-events-none"
-                          style={{ backgroundImage: "url('/assets/3D_vn_map.png')" }}
+                        <img 
+                          src="/assets/3D_vn_map.png"
+                          alt="3D Vietnam Map"
+                          referrerPolicy="no-referrer"
+                          className="absolute inset-0 w-full h-full object-fill opacity-80 pointer-events-none"
                         />
 
                         {/* Cyber grids & HUD overlays */}
