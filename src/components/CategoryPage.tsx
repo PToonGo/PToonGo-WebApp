@@ -44,25 +44,6 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
     ]
   },
   {
-    id: "langson",
-    name: "Lạng Sơn",
-    fullName: "Lạng Sơn",
-    tempMin: 17,
-    tempMax: 25,
-    currentStatus: "cloudy",
-    top: "9.78%",
-    left: "42.6%",
-    forecast: [
-      { day: "Thứ Hai", status: "cloudy", summary: "Mây che phủ đỉnh Mẫu Sơn, không khí se lạnh, sương mù nhẹ lãng đãng quanh núi rừng." },
-      { day: "Thứ Ba", status: "sunny", summary: "Hửng nắng nhẹ vùng biên cương, thuận lợi tham quan động Tam Thanh và Ải Chi Lăng kỳ vĩ." },
-      { day: "Thứ Tư", status: "cloudy", summary: "Bầu trời nhiều mây che bớt nắng gắt, thích hợp mua sắm tại chợ Kỳ Lừa sầm uất." },
-      { day: "Thứ Năm", status: "sunny", summary: "Thời tiết ấm áp tràn đầy ánh nắng rực rỡ, không khí mát mẻ trong lành cả ngày." },
-      { day: "Thứ Sáu", status: "windy", summary: "Gió Đông Bắc thổi nhẹ mang không khí mát rượi, bầu trời khô ráo thông thoáng." },
-      { day: "Thứ Bảy", status: "rainy", summary: "Khả năng có mưa phùn rải rác vào sáng sớm, trưa chiều tạnh ráo dễ chịu." },
-      { day: "Chủ Nhật", status: "sunny", summary: "Nắng trải đều vùng cao biên giới, ngày nghỉ lý tưởng cho các chuyến hành trình tâm linh." }
-    ]
-  },
-  {
     id: "sapa",
     name: "Sapa",
     fullName: "Sapa (Lào Cai)",
@@ -98,6 +79,25 @@ const TRAVEL_LOCATIONS: TravelLocation[] = [
       { day: "Thứ Sáu", status: "stormy", summary: "Mây đen kéo đến rải rác, có thể có mưa rào nhẹ cục bộ vào chiều tối." },
       { day: "Thứ Bảy", status: "sunny", summary: "Mưa dứt nhanh, bầu trời trong lành trở lại, không khí mát mẻ sảng khoái." },
       { day: "Chủ Nhật", status: "sunny", summary: "Nắng nhẹ trải vàng trên những thửa ruộng bậc thang Hoàng Su Phì, cảnh sắc hữu tình." }
+    ]
+  },
+  {
+    id: "langson",
+    name: "Lạng Sơn",
+    fullName: "Lạng Sơn",
+    tempMin: 17,
+    tempMax: 25,
+    currentStatus: "cloudy",
+    top: "9.78%",
+    left: "42.6%",
+    forecast: [
+      { day: "Thứ Hai", status: "cloudy", summary: "Mây che phủ đỉnh Mẫu Sơn, không khí se lạnh, sương mù nhẹ lãng đãng quanh núi rừng." },
+      { day: "Thứ Ba", status: "sunny", summary: "Hửng nắng nhẹ vùng biên cương, thuận lợi tham quan động Tam Thanh và Ải Chi Lăng kỳ vĩ." },
+      { day: "Thứ Tư", status: "cloudy", summary: "Bầu trời nhiều mây che bớt nắng gắt, thích hợp mua sắm tại chợ Kỳ Lừa sầm uất." },
+      { day: "Thứ Năm", status: "sunny", summary: "Thời tiết ấm áp tràn đầy ánh nắng rực rỡ, không khí mát mẻ trong lành cả ngày." },
+      { day: "Thứ Sáu", status: "windy", summary: "Gió Đông Bắc thổi nhẹ mang không khí mát rượi, bầu trời khô ráo thông thoáng." },
+      { day: "Thứ Bảy", status: "rainy", summary: "Khả năng có mưa phùn rải rác vào sáng sớm, trưa chiều tạnh ráo dễ chịu." },
+      { day: "Chủ Nhật", status: "sunny", summary: "Nắng trải đều vùng cao biên giới, ngày nghỉ lý tưởng cho các chuyến hành trình tâm linh." }
     ]
   },
   {
@@ -620,7 +620,7 @@ export default function CategoryPage({
                     {selectedVideo.title}
                   </h3>
 
-                  <div className="text-sm text-gray-300 leading-relaxed text-justify space-y-2">
+                  <div className="text-sm text-gray-300 leading-relaxed text-justify max-h-[140px] overflow-y-auto pr-2 custom-scrollbar space-y-2">
                     <p>{selectedVideo.summary}</p>
                   </div>
 
@@ -1035,7 +1035,7 @@ export default function CategoryPage({
                     {selectedVideo.title}
                   </h3>
 
-                  <div className="text-sm text-gray-300 leading-relaxed text-justify space-y-2">
+                  <div className="text-sm text-gray-300 leading-relaxed text-justify max-h-[140px] overflow-y-auto pr-2 custom-scrollbar space-y-2">
                     <p>{selectedVideo.summary}</p>
                   </div>
                 </div>
