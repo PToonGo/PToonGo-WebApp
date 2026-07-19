@@ -90,7 +90,13 @@ export default function VideoManagement({ videos, refreshVideos, profile }: Vide
       };
       const prefix = prefixMap[category];
       const count = videos.filter((v) => v.category === category).length;
-      setId(`${prefix}${count + 1}`);
+      let nextNum = count + 1;
+      let proposedId = `${prefix}${nextNum}`;
+      while (videos.some((v) => v.id === proposedId)) {
+        nextNum++;
+        proposedId = `${prefix}${nextNum}`;
+      }
+      setId(proposedId);
     }
   }, [category, videos, selectedVideoId]);
 
